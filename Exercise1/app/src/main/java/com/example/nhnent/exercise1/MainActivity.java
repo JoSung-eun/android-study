@@ -3,52 +3,47 @@ package com.example.nhnent.exercise1;
 import android.app.Activity;
 import android.os.Bundle;
 import android.text.Editable;
-import android.text.InputFilter;
 import android.text.TextWatcher;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import static com.example.nhnent.exercise1.R.id.maxByte;
-
 public class MainActivity extends Activity {
     static final int LIMIT_BYTE = 150;
-    EditText msgContent;
-    TextView currentByte;
+    EditText etMessage;
+    TextView tvByte;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        msgContent = (EditText)findViewById(R.id.msgContent);
-        currentByte = (TextView)findViewById(R.id.currentByte) ;
+        etMessage = (EditText)findViewById(R.id.message);
+        tvByte = (TextView)findViewById(R.id.cur_byte) ;
 
-        msgContent.addTextChangedListener(new TextWatcher() {
-            String before;
+        etMessage.addTextChangedListener(new TextWatcher() {
+            String beforeChanged;
 
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                before = s.toString();
+                beforeChanged = s.toString();
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                int bytes = s.toString().getBytes().length;
-                if(bytes < LIMIT_BYTE) {
-                    currentByte.setText(bytes + "");
-                }
-                else {
-                    Toast.makeText(MainActivity.this, "limit", Toast.LENGTH_SHORT).show();
-                    System.out.println(before);
-                    //msgContent.setText(before);
-                }
 
             }
 
             @Override
             public void afterTextChanged(Editable s) {
+                int bytes = s.toString().getBytes().length;
+                if (bytes > LIMIT_BYTE) {
+                    Toast.makeText(MainActivity.this, "150byte까지 입력가능합니다.", Toast.LENGTH_SHORT).show();
 
+                    etMessage.setText(beforeChanged);
+                    bytes = etMessage.getText().toString().getBytes().length;
+                }
+                tvByte.setText(bytes + "");
             }
         });
     }

@@ -10,28 +10,28 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="30dp">
+        android:layout_marginBottom="25dp">
         <EditText
-            android:id="@+id/msgContent"
+            android:id="@+id/message"
             android:layout_width="match_parent"
             android:layout_height="250dp"
             android:gravity="top"
             android:scrollbars="vertical"
             android:hint="메시지 내용 입력"/>
         <TextView
-            android:id="@+id/currentByte"
+            android:id="@+id/cur_byte"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/msgContent"
-            android:layout_toLeftOf="@+id/maxByte"
-            android:layout_alignBottom="@+id/maxByte"
+            android:layout_below="@+id/message"
+            android:layout_toLeftOf="@+id/max_byte"
+            android:layout_alignBottom="@+id/max_byte"
             android:text="0"/>
         <TextView
-            android:id="@+id/maxByte"
+            android:id="@+id/max_byte"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_below="@+id/msgContent"
+            android:layout_below="@+id/message"
             android:text=" / 150 byte"/>
     </RelativeLayout>
     <LinearLayout
@@ -46,6 +46,7 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:hint="전화번호"
             android:inputType="phone"/>
     </LinearLayout>
     <RelativeLayout
@@ -54,16 +55,16 @@
         android:orientation="horizontal"
         android:gravity="center|bottom">
         <Button
-            android:id="@+id/btnsend"
+            android:id="@+id/btn_send"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="10dp"
             android:text="전송"/>
         <Button
-            android:id="@+id/btncancel"
+            android:id="@+id/btn_cancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/btnsend"
+            android:layout_toRightOf="@+id/btn_send"
             android:layout_marginLeft="10dp"
             android:text="취소" />
     </RelativeLayout>
