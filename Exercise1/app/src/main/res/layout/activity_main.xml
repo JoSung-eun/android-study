@@ -10,28 +10,28 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="25dp">
+        android:layout_marginBottom="25dp" >
         <EditText
-            android:id="@+id/message"
+            android:id="@+id/edit_message"
             android:layout_width="match_parent"
             android:layout_height="250dp"
             android:gravity="top"
             android:scrollbars="vertical"
-            android:hint="메시지 내용 입력"/>
+            android:hint="메시지 내용 입력" />
         <TextView
-            android:id="@+id/cur_byte"
+            android:id="@+id/text_cur_byte"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/message"
-            android:layout_toLeftOf="@+id/max_byte"
-            android:layout_alignBottom="@+id/max_byte"
+            android:layout_below="@+id/edit_message"
+            android:layout_toLeftOf="@+id/text_max_byte"
+            android:layout_alignBottom="@+id/text_max_byte"
             android:text="0"/>
         <TextView
-            android:id="@+id/max_byte"
+            android:id="@+id/text_max_byte"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_below="@+id/message"
+            android:layout_below="@+id/edit_message"
             android:text=" / 150 byte"/>
     </RelativeLayout>
     <LinearLayout
@@ -42,7 +42,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="To : "
-            android:textSize="20sp"/>
+            android:textSize="20sp" />
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
