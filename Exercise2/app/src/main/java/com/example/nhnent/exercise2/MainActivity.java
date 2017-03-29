@@ -7,6 +7,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class MainActivity extends Activity {
     Button okButton;
     Button cancelButton;
@@ -34,7 +37,7 @@ public class MainActivity extends Activity {
         okButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(android.util.Patterns.EMAIL_ADDRESS.matcher(emailEdit.getText()).matches()) {
+                if(isValidEmail(emailEdit.getText().toString())) {
                     setContentView(R.layout.after_login);
                     emailText = (TextView) findViewById(R.id.text_email);
                     emailText.setText(emailEdit.getText());
@@ -42,6 +45,7 @@ public class MainActivity extends Activity {
                 else {
                     emailErrorText.setVisibility(View.VISIBLE);
                 }
+
             }
         });
 
@@ -51,5 +55,15 @@ public class MainActivity extends Activity {
                 finish();
             }
         });
+    }
+
+    private boolean isValidEmail(String email) {
+        return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
+    }
+
+    private boolean isValidPassword(String password) {
+        Pattern pattern = Pattern.compile("");
+        Matcher matcher = pattern.matcher(password);
+        return matcher.matches();
     }
 }
