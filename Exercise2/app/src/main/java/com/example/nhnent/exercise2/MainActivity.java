@@ -37,10 +37,13 @@ public class MainActivity extends Activity {
         okButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(isValidEmail(emailEdit.getText().toString())) {
+                String email = emailEdit.getText().toString();
+                String password = passwordEdit.getText().toString();
+
+                if(isValidEmail(email)) {
                     setContentView(R.layout.after_login);
                     emailText = (TextView) findViewById(R.id.text_email);
-                    emailText.setText(emailEdit.getText());
+                    emailText.setText(email);
                 }
                 else {
                     emailErrorText.setVisibility(View.VISIBLE);
@@ -66,4 +69,5 @@ public class MainActivity extends Activity {
         Matcher matcher = pattern.matcher(password);
         return matcher.matches();
     }
+    
 }
