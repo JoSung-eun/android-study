@@ -13,7 +13,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class MainActivity extends Activity {
-    public static final String PREFS_NAME = "Ex2PrefsFile";
+    static final String PREFS_NAME = "Ex2PrefsFile";
+    static final String PREFS_KEY = "LOGIN_EMAIL";
 
     String loggedInEmail;
 
@@ -26,7 +27,6 @@ public class MainActivity extends Activity {
     CheckBox autoLoginCheck;
 
     TextView emailText;
-    Button logoutButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +34,7 @@ public class MainActivity extends Activity {
 
 
         SharedPreferences sharedPreferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
-        loggedInEmail = sharedPreferences.getString("loggedInEmail", "");
+        loggedInEmail = sharedPreferences.getString(PREFS_KEY, "");
 
         if(loggedInEmail.length() != 0) {
             login(loggedInEmail);
@@ -87,7 +87,7 @@ public class MainActivity extends Activity {
 
         SharedPreferences sharedPreferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("loggedInEmail", loggedInEmail);
+        editor.putString(PREFS_KEY, loggedInEmail);
         editor.commit();
     }
 
