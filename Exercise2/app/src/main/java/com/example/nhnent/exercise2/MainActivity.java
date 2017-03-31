@@ -1,9 +1,11 @@
 package com.example.nhnent.exercise2;
 
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -11,53 +13,82 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class MainActivity extends Activity {
+    public static final String PREFS_NAME = "Ex2PrefsFile";
+
+    String loggedInEmail;
+
     Button okButton;
     Button cancelButton;
     TextView emailErrorText;
     TextView passwordErrorText;
     EditText emailEdit;
     EditText passwordEdit;
+    CheckBox autoLoginCheck;
 
     TextView emailText;
+    Button logoutButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
 
-        okButton = (Button) findViewById(R.id.btn_ok);
-        cancelButton = (Button) findViewById(R.id.btn_cancel);
 
-        emailErrorText = (TextView) findViewById(R.id.text_email_error);
-        passwordErrorText = (TextView) findViewById(R.id.text_pwd_error);
+        SharedPreferences sharedPreferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        loggedInEmail = sharedPreferences.getString("loggedInEmail", "");
 
-        emailEdit = (EditText) findViewById(R.id.edit_email);
-        passwordEdit = (EditText) findViewById(R.id.edit_password);
+        if(loggedInEmail.length() != 0) {
+            login(loggedInEmail);
+        }
+        else {
+            setContentView(R.layout.activity_main);
 
-        okButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String email = emailEdit.getText().toString();
-                String password = passwordEdit.getText().toString();
+            okButton = (Button) findViewById(R.id.btn_ok);
+            cancelButton = (Button) findViewById(R.id.btn_cancel);
 
-                if(isValidEmail(email)) {
-                    setContentView(R.layout.after_login);
-                    emailText = (TextView) findViewById(R.id.text_email);
-                    emailText.setText(email);
+            emailErrorText = (TextView) findViewById(R.id.text_email_error);
+            passwordErrorText = (TextView) findViewById(R.id.text_pwd_error);
+
+            emailEdit = (EditText) findViewById(R.id.edit_email);
+            passwordEdit = (EditText) findViewById(R.id.edit_password);
+
+            autoLoginCheck = (CheckBox) findViewById(R.id.check_auto_login);
+
+            okButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String email = emailEdit.getText().toString();
+                    String password = passwordEdit.getText().toString();
+
+                    if (isValidEmail(email)) {
+                        login(email);
+
+                        if (autoLoginCheck.isChecked()) {
+                            loggedInEmail = email;
+                        }
+                    } else {
+                        emailErrorText.setVisibility(View.VISIBLE);
+                    }
+
                 }
-                else {
-                    emailErrorText.setVisibility(View.VISIBLE);
+            });
+
+            cancelButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    finish();
                 }
+            });
+        }
+    }
 
-            }
-        });
+    @Override
+    protected void onStop() {
+        super.onStop();
 
-        cancelButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        SharedPreferences sharedPreferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("loggedInEmail", loggedInEmail);
+        editor.commit();
     }
 
     private boolean isValidEmail(String email) {
@@ -68,6 +99,13 @@ public class MainActivity extends Activity {
         Pattern pattern = Pattern.compile("");
         Matcher matcher = pattern.matcher(password);
         return matcher.matches();
+    }
+
+    private void login(String email) {
+        setContentView(R.layout.after_login);
+
+        emailText = (TextView) findViewById(R.id.text_email);
+        emailText.setText(email);
     }
     
 }
