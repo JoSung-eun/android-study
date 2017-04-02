@@ -3,6 +3,7 @@ package com.example.nhnent.exercise2;
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -45,9 +46,6 @@ public class MainActivity extends Activity {
             okButton = (Button) findViewById(R.id.btn_ok);
             cancelButton = (Button) findViewById(R.id.btn_cancel);
 
-            emailErrorText = (TextView) findViewById(R.id.text_email_error);
-            passwordErrorText = (TextView) findViewById(R.id.text_pwd_error);
-
             emailEdit = (EditText) findViewById(R.id.edit_email);
             passwordEdit = (EditText) findViewById(R.id.edit_password);
 
@@ -59,14 +57,12 @@ public class MainActivity extends Activity {
                     String email = emailEdit.getText().toString();
                     String password = passwordEdit.getText().toString();
 
-                    if (isValidEmail(email)) {
+                    if (isValidEmail(email) && isValidPassword(password)) {
                         login(email);
 
                         if (autoLoginCheck.isChecked()) {
                             loggedInEmail = email;
                         }
-                    } else {
-                        emailErrorText.setVisibility(View.VISIBLE);
                     }
 
                 }
@@ -92,13 +88,31 @@ public class MainActivity extends Activity {
     }
 
     private boolean isValidEmail(String email) {
-        return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
+        boolean match = android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
+
+        if (match == false) {
+            emailErrorText = (TextView) findViewById(R.id.text_email_error);
+            emailErrorText.setVisibility(View.VISIBLE);
+        }
+
+        return match;
     }
 
     private boolean isValidPassword(String password) {
-        Pattern pattern = Pattern.compile("");
-        Matcher matcher = pattern.matcher(password);
-        return matcher.matches();
+        Pattern lengthPattern = Pattern.compile("[\\w!@#$%^&*+].{7,}");
+        Matcher lengthMatcher = lengthPattern.matcher(password);
+
+        Pattern specialCharPattern = Pattern.compile(".*[!@#$%^&*+].*[!@#$%^&*+].*");
+        Matcher specialCharMatcher = specialCharPattern.matcher(password);
+
+        boolean match = specialCharMatcher.matches() && lengthMatcher.matches();
+
+        if (match == false) {
+            passwordErrorText = (TextView) findViewById(R.id.text_pwd_error);
+            passwordErrorText.setVisibility(View.VISIBLE);
+        }
+
+        return match;
     }
 
     private void login(String email) {
