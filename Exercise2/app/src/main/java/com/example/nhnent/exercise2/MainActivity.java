@@ -49,6 +49,9 @@ public class MainActivity extends Activity {
             emailEdit = (EditText) findViewById(R.id.edit_email);
             passwordEdit = (EditText) findViewById(R.id.edit_password);
 
+            emailErrorText = (TextView) findViewById(R.id.text_email_error);
+            passwordErrorText = (TextView) findViewById(R.id.text_pwd_error);
+
             autoLoginCheck = (CheckBox) findViewById(R.id.check_auto_login);
 
             okButton.setOnClickListener(new View.OnClickListener() {
@@ -91,7 +94,6 @@ public class MainActivity extends Activity {
         boolean match = android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
 
         if (match == false) {
-            emailErrorText = (TextView) findViewById(R.id.text_email_error);
             emailErrorText.setVisibility(View.VISIBLE);
         }
 
@@ -108,7 +110,6 @@ public class MainActivity extends Activity {
         boolean match = specialCharMatcher.matches() && lengthMatcher.matches();
 
         if (match == false) {
-            passwordErrorText = (TextView) findViewById(R.id.text_pwd_error);
             passwordErrorText.setVisibility(View.VISIBLE);
         }
 
