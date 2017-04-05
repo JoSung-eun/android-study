@@ -20,22 +20,10 @@ import org.w3c.dom.Text;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
-
-    class Contact {
-        String name;
-        String phoneNumber;
-
-        public Contact(String name, String phoneNumber) {
-            this.name = name;
-            this.phoneNumber = phoneNumber;
-        }
-    }
-
-
     RecyclerView recyclerView;
     RecyclerView.Adapter adapter;
     RecyclerView.LayoutManager layoutManager;
-
+    ArrayList<Contact> contacts = new ArrayList<>();
     EditText queryEdit;
 
     @Override
@@ -49,8 +37,6 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
 
         recyclerView.addItemDecoration(new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL));
-
-        getContacts(this.getContentResolver(), "");
 
         queryEdit = (EditText) findViewById(R.id.edit_query);
         queryEdit.addTextChangedListener(new TextWatcher() {
@@ -69,29 +55,35 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+        adapter = new CustomAdapter(contacts);
+        recyclerView.setAdapter(adapter);
+
+        getContacts(this.getContentResolver(), "");
     }
 
     public void getContacts(ContentResolver contentResolver, String searchQuery) {
-
         Uri contentUri;
         if (TextUtils.isEmpty(searchQuery)) {
             contentUri = ContactsContract.CommonDataKinds.Phone.CONTENT_URI;
         }
         else {
-            contentUri = Uri.withAppendedPath(ContactsContract.CommonDataKinds.Phone.CONTENT_FILTER_URI, Uri.encode(searchQuery));
+            contentUri = Uri.withAppendedPath(ContactsContract.CommonDataKinds.Phone.CONTENT_FILTER_URI, Uri.encode(searchQuery)); //이름만 검색하는 게 아니었다..바꿔야 됨 LIKE 로
+            Log.d("EX3", "searchQuery : " + searchQuery);
         }
 
         try (Cursor cursor =
                     contentResolver.query(contentUri, null, null, null, ContactsContract.Contacts.SORT_KEY_PRIMARY + " ASC")) {
-            ArrayList<Contact> contacts = new ArrayList<>();
+            contacts.clear();
+
             while (cursor.moveToNext()) {
                 String name = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
                 String phoneNumber = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
                 contacts.add(new Contact(name, phoneNumber));
+                Log.d("EX3", name);
             }
 
-            adapter = new CustomAdapter(contacts);
-            recyclerView.setAdapter(adapter);
+            recyclerView.getAdapter().notifyDataSetChanged();
 
             cursor.close();
         }

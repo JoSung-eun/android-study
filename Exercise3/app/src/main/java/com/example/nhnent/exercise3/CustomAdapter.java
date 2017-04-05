@@ -16,7 +16,7 @@ import java.util.ArrayList;
  */
 
 public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder> {
-    ArrayList<MainActivity.Contact> contacts;
+    ArrayList<Contact> contacts;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public TextView nameText;
@@ -31,7 +31,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
         }
     }
 
-    public CustomAdapter(ArrayList<MainActivity.Contact> contacts) {
+    public CustomAdapter(ArrayList<Contact> contacts) {
         this.contacts = contacts;
     }
 
