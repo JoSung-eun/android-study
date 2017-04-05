@@ -3,6 +3,7 @@ package com.example.nhnent.exercise2;
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -37,7 +38,7 @@ public class MainActivity extends Activity {
         SharedPreferences sharedPreferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
         loggedInEmail = sharedPreferences.getString(PREFS_KEY, "");
 
-        if(loggedInEmail.length() != 0) {
+        if(TextUtils.isEmpty(loggedInEmail)) {
             login(loggedInEmail);
         }
         else {
