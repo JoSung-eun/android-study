@@ -63,20 +63,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void getContacts(ContentResolver contentResolver, String searchQuery) {
-        Uri contentUri;
-        if (TextUtils.isEmpty(searchQuery)) {
-            contentUri = ContactsContract.CommonDataKinds.Phone.CONTENT_URI;
-        }
-        else {
-            contentUri = Uri.withAppendedPath(ContactsContract.CommonDataKinds.Phone.CONTENT_FILTER_URI, Uri.encode(searchQuery)); //이름만 검색하는 게 아니었다..바꿔야 됨 LIKE 로
-            Log.d("EX3", "searchQuery : " + searchQuery);
-        }
+        String[] projection = {ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME, ContactsContract.CommonDataKinds.Phone.NUMBER};
+        String[] selectionArgs = {"%" + searchQuery + "%"};
 
         try (Cursor cursor =
-                    contentResolver.query(contentUri, null, null, null, ContactsContract.Contacts.SORT_KEY_PRIMARY + " ASC")) {
+                    contentResolver.query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, projection,
+                            ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME + " LIKE ?", selectionArgs,
+                            ContactsContract.Contacts.SORT_KEY_PRIMARY + " ASC")) {
+
             contacts.clear();
 
-            while (cursor.moveToNext()) {
+            while (cursor != null && cursor.moveToNext()) {
                 String name = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
                 String phoneNumber = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
                 contacts.add(new Contact(name, phoneNumber));
@@ -84,8 +81,6 @@ public class MainActivity extends AppCompatActivity {
             }
 
             recyclerView.getAdapter().notifyDataSetChanged();
-
-            cursor.close();
         }
     }
 }
