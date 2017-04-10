@@ -1,5 +1,7 @@
 package com.example.nhnent.exercise3;
 
+import android.database.Cursor;
+import android.provider.ContactsContract;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,13 +18,13 @@ import java.util.ArrayList;
  */
 
 public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder> {
-    ArrayList<Contact> contacts;
+    private Cursor cursor;
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView nameText;
-        public TextView phoneNumberText;
+    static class ViewHolder extends RecyclerView.ViewHolder {
+        TextView nameText;
+        TextView phoneNumberText;
 
-        public ViewHolder(View view) {
+        ViewHolder(View view) {
             super(view);
 
             nameText = (TextView) view.findViewById(R.id.text_name);
@@ -31,25 +33,40 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
         }
     }
 
-    public CustomAdapter(ArrayList<Contact> contacts) {
-        this.contacts = contacts;
+    CustomAdapter() {
+
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.contact_list, parent, false);
-        ViewHolder viewHolder = new ViewHolder(view);
-        return viewHolder;
+        return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.nameText.setText(contacts.get(position).name);
-        holder.phoneNumberText.setText(contacts.get(position).phoneNumber);
+        Cursor currentCursor = getItem(position);
+        holder.nameText.setText(currentCursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME)));
+        holder.phoneNumberText.setText(currentCursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER)));
     }
 
     @Override
     public int getItemCount() {
-        return contacts.size();
+        if (cursor == null) {
+            return 0;
+        }
+        return cursor.getCount();
+    }
+
+    private Cursor getItem(int position) {
+        if (cursor != null && !cursor.isClosed()) {
+            cursor.moveToPosition(position);
+        }
+        return cursor;
+    }
+
+    public void swapCursor(Cursor cursor) {
+        this.cursor = cursor;
+        this.notifyDataSetChanged();
     }
 }
