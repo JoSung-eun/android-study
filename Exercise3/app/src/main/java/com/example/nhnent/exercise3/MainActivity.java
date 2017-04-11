@@ -16,7 +16,7 @@ import android.widget.EditText;
 
 public class MainActivity extends Activity implements LoaderManager.LoaderCallbacks<Cursor> {
     RecyclerView recyclerView;
-    CustomAdapter adapter;
+    ContactAdapter adapter;
     RecyclerView.LayoutManager layoutManager;
     EditText queryEdit;
     String query;
@@ -55,7 +55,7 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
             }
         });
 
-        adapter = new CustomAdapter();
+        adapter = new ContactAdapter();
         recyclerView.setAdapter(adapter);
     }
 
@@ -80,5 +80,6 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
     public void onLoaderReset(Loader<Cursor> loader) {
         adapter.swapCursor(null);
     }
+
 
 }
