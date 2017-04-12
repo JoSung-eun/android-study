@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Exercise4-search</string>
+    <string name="daum_api_key">53946c1661edc714a895caebcc092b31</string>
+    <string name="daum_search_url">https://apis.daum.net/search/web</string>
+</resources>
