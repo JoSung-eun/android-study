@@ -1,95 +1,103 @@
 package com.example.nhnent.exercise4_search;
 
+import android.content.Context;
 import android.os.AsyncTask;
-import android.util.Log;
-
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by nhnent on 2017. 4. 12..
  */
 
 public class UrlConnectionModule {
-    UrlConnectionModule(String apiKey, String url, String method, String query) {
-        new ConnectionTask(apiKey, url, method, query).execute();
-    }
 
-    public void requestSearch(String url, String method, String query, HttpCallbackListener httpCallbackListener) {
+    public static void requestSearch(final Context context, final String query, final HttpCallbackListener httpCallbackListener) {
+        final String API_KEY = context.getString(R.string.daum_api_key);
+        final String DAUM_URL = context.getString(R.string.daum_search_url);
 
+        final Map<String, String> params = new HashMap<>();
+        params.put("apikey", API_KEY);
+        params.put("q", query);
+        params.put("result", "20");
+        params.put("pageno", "1");
+        params.put("output", "json");
 
-    }
+        new AsyncTask<Void, Void, String>() {
+            StringBuilder urlBuilder = new StringBuilder();
 
-    private class ConnectionTask extends AsyncTask<Void, Void, Void> {
-        private final String apiKey;
-        private String url;
-        private String method;
-        private String query;
-        private String result;
+            int responseCode;
 
-        ConnectionTask(String apiKey, String url, String method, String query) {
-            this.apiKey = apiKey;
-            this.url = url;
-            this.method = method;
-            this.query = query;
-        }
-
-        @Override
-        protected void onPreExecute() { //통신 전 필요한 설정
-            super.onPreExecute();
-            try {
-                String apiKeyQuery = "apikey=" + URLEncoder.encode(apiKey, "UTF-8");
-                String searchQuery = "q=" + URLEncoder.encode(query, "UTF-8");
-                String outputQuery = "output=" + URLEncoder.encode("json", "UTF-8");
-                url = url + "?" + apiKeyQuery + "&" + searchQuery + "&" + outputQuery; //탐색하고 싶은 URL -> String.format으로 바꾸기
-            }
-            catch (Exception e) {
-                e.printStackTrace();
-            }
-
-        }
-
-        @Override
-        protected Void doInBackground(Void... voids) { //통신 부분
-            try{
-                URL url = new URL(this.url); // URL화 한다.
-                HttpURLConnection conn = (HttpURLConnection) url.openConnection(); // URL을 연결한 객체 생성.
-                conn.setRequestMethod(method); // get방식 통신
-                conn.setDoInput(true); // 읽기모드 지정
-                conn.setUseCaches(false); // 캐싱데이터를 받을지 안받을지
-                conn.setDefaultUseCaches(false); // 캐싱데이터 디폴트 값 설정
-
-                Log.i("Response", conn.getResponseMessage());
-
-                InputStream is = conn.getInputStream(); //input스트림 개방
-
-                StringBuilder builder = new StringBuilder(); //문자열을 담기 위한 객체
-                //string builder는 동기화 X string buffer가 thread safe
-                BufferedReader reader = new BufferedReader(new InputStreamReader(is,"UTF-8")); //문자열 셋 세팅
-                String line;
-
-                while ((line = reader.readLine()) != null) {
-                    builder.append(line).append('\n');
+            @Override
+            protected void onPreExecute() {
+                try {
+                    urlBuilder.append(DAUM_URL).append("?");
+                    for (String key : params.keySet()) {
+                        if (urlBuilder.length() > 0) {
+                            urlBuilder.append('&');
+                        }
+                        urlBuilder.append(String.format("%s=%s",
+                                URLEncoder.encode(key, "UTF-8"),
+                                URLEncoder.encode(params.get(key), "UTF-8")));
+                    }
+                }
+                catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
                 }
 
-                result = builder.toString();
-
-            }catch(IOException io){
-                io.printStackTrace();
             }
-            return null;
-        }
 
-        @Override
-        protected void onPostExecute(Void aVoid) { //통신 후 마무리 작
-            super.onPostExecute(aVoid);
-            Log.i("Network", result);
-        }
+            @Override
+            protected String doInBackground(Void... voids) { //TODO close
+                String responseMessage = null;
+                HttpURLConnection connection = null;
+                InputStreamReader inputStreamReader = null;
+                BufferedReader bufferedReader = null;
+                try{
+                    URL url = new URL(urlBuilder.toString());
+                    connection = (HttpURLConnection) url.openConnection();
+                    connection.setRequestMethod("GET");
+                    connection.setDoInput(true);
+
+                    responseCode = connection.getResponseCode();
+                    responseMessage = connection.getResponseMessage();
+
+                    StringBuilder builder = new StringBuilder();
+
+                    inputStreamReader = new InputStreamReader(connection.getInputStream(),"UTF-8");
+                    bufferedReader = new BufferedReader(inputStreamReader); //todo
+
+                    String line;
+
+                    while ((line = bufferedReader.readLine()) != null) {
+                        builder.append(line).append('\n');
+                    }
+
+                    return builder.toString();
+
+                } catch(IOException io) {
+                    io.printStackTrace();
+                    return String.format(context.getString(R.string.search_error_message), responseCode, responseMessage);
+                }
+            }
+
+            @Override
+            protected void onPostExecute(String result) {
+                if (responseCode == HttpURLConnection.HTTP_OK) {
+                    httpCallbackListener.onSuccess(result);
+                }
+                else {
+                    httpCallbackListener.onFail(result);
+                }
+            }
+        }.execute();
+
     }
 
 }

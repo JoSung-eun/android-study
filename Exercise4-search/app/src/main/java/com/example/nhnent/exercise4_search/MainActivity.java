@@ -1,40 +1,62 @@
 package com.example.nhnent.exercise4_search;
 
 import android.app.Activity;
-import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.ProtocolException;
-import java.net.URL;
+import com.google.gson.Gson;
 
 public class MainActivity extends Activity {
+    RecyclerView recyclerView;
+    SearchAdapter adapter;
 
+    EditText queryEdit;
+    Button searchButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        String API_KEY = getResources().getString(R.string.daum_api_key);
-
-        Log.i("search", API_KEY);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        UrlConnectionModule connectionModule =
-                new UrlConnectionModule(getString(R.string.daum_api_key), getString(R.string.daum_search_url), "GET", "다음");
+        queryEdit = (EditText) findViewById(R.id.edit_query);
+        searchButton = (Button) findViewById(R.id.button_search);
 
-        connectionModule.requestSearch("", "", null, new HttpCallbackListener() {
+        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.addItemDecoration(new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL));
+
+        searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void httpCallback(int responseCode, Object data) {
+            public void onClick(View v) {
+                String query = queryEdit.getText().toString().trim();
 
+                UrlConnectionModule.requestSearch(MainActivity.this, query, new HttpCallbackListener() {
+                    @Override
+                    public void onSuccess(String data) {
+                        DaumSearchResult daumSearchResult = new Gson().fromJson(data, DaumSearchResult.class);
+
+                        adapter = new SearchAdapter(daumSearchResult.getChannel().getItem());
+                        recyclerView.setAdapter(adapter);
+                    }
+
+                    @Override
+                    public void onFail(String data) {
+                        if (adapter != null) {
+                            Log.e("MAIN", data);
+                            adapter.clear();
+                        }
+                    }
+                });
             }
         });
+
+
 
     }
 }

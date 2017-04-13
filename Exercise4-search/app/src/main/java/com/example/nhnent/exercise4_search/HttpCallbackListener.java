@@ -1,9 +1,12 @@
 package com.example.nhnent.exercise4_search;
 
+import com.google.gson.JsonArray;
+
 /**
  * Created by nhnent on 2017. 4. 12..
  */
 
 public interface HttpCallbackListener {
-    void httpCallback(int responseCode, Object data);
+    void onSuccess(String data);
+    void onFail(String data);
 }
