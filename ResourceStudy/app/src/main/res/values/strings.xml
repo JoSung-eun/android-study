@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">ResourceStudy</string>
+    <string name="multi_caption">MultiLang</string>
+    <string name="multi_textcaption">This program supports Korean and English</string>
+    <string name="multi_buttoncaption">Press me</string>
+    <string name="multi_smile">^_^</string>
+    <string name="multi_toasttext">You pressed button</string>
+</resources>
