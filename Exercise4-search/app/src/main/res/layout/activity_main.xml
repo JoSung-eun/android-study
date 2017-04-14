@@ -27,7 +27,6 @@
             android:text="@string/search_btn_label"/>
             <!--android:background="@drawable/button_selector"-->
     </LinearLayout>
-
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"

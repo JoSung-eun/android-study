@@ -10,8 +10,6 @@ import java.util.List;
  */
 
 public class DaumSearchResult {
-    int responseCode;
-
     @SerializedName("channel")
     @Expose
     private Channel channel;

@@ -9,8 +9,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
 
 public class MainActivity extends Activity {
     RecyclerView recyclerView;
@@ -39,10 +41,13 @@ public class MainActivity extends Activity {
                 UrlConnectionModule.requestSearch(MainActivity.this, query, new HttpCallbackListener() {
                     @Override
                     public void onSuccess(String data) {
-                        DaumSearchResult daumSearchResult = new Gson().fromJson(data, DaumSearchResult.class);
-
-                        adapter = new SearchAdapter(daumSearchResult.getChannel().getItem());
-                        recyclerView.setAdapter(adapter);
+                        try {
+                            DaumSearchResult daumSearchResult = new Gson().fromJson(data, DaumSearchResult.class);
+                            adapter = new SearchAdapter(daumSearchResult.getChannel().getItem());
+                            recyclerView.setAdapter(adapter);
+                        } catch (JsonSyntaxException e) {
+                            e.printStackTrace();
+                        }
                     }
 
                     @Override

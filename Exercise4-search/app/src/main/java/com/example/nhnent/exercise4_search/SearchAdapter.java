@@ -17,12 +17,15 @@ import java.util.List;
  */
 
 public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder> {
+    private int TYPE_CONTENTS = 0;
+    private int TYPE_FOOTER;
+
     private List<DaumSearchResult.Item> items;
 
     static class ViewHolder extends RecyclerView.ViewHolder {
         TextView titleText;
 
-        ViewHolder(View view) {
+        ViewHolder(View view) { // ViewHolder(View view, int viewType)
             super(view);
             titleText = (TextView) view.findViewById(R.id.text_title);
         }
@@ -30,6 +33,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
 
     SearchAdapter(List<DaumSearchResult.Item> items) {
         this.items = items;
+        TYPE_FOOTER = items.size() + 1;
     }
 
     @Override

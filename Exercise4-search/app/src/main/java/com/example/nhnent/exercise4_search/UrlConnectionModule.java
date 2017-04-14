@@ -2,14 +2,20 @@ package com.example.nhnent.exercise4_search;
 
 import android.content.Context;
 import android.os.AsyncTask;
+
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 /**
@@ -54,11 +60,13 @@ public class UrlConnectionModule {
             }
 
             @Override
-            protected String doInBackground(Void... voids) { //TODO close
+            protected String doInBackground(Void... voids) {
                 String responseMessage = null;
+
                 HttpURLConnection connection = null;
-                InputStreamReader inputStreamReader = null;
-                BufferedReader bufferedReader = null;
+                ByteArrayOutputStream outputStream = null;
+                InputStream inputStream = null;
+
                 try{
                     URL url = new URL(urlBuilder.toString());
                     connection = (HttpURLConnection) url.openConnection();
@@ -68,22 +76,27 @@ public class UrlConnectionModule {
                     responseCode = connection.getResponseCode();
                     responseMessage = connection.getResponseMessage();
 
-                    StringBuilder builder = new StringBuilder();
+                    StringBuilder result = new StringBuilder();
 
-                    inputStreamReader = new InputStreamReader(connection.getInputStream(),"UTF-8");
-                    bufferedReader = new BufferedReader(inputStreamReader); //todo
+                    inputStream = new BufferedInputStream(connection.getInputStream());
+                    outputStream = new ByteArrayOutputStream();
 
-                    String line;
-
-                    while ((line = bufferedReader.readLine()) != null) {
-                        builder.append(line).append('\n');
+                    byte[] buffer = new byte[4096];
+                    int length;
+                    while ((length = inputStream.read(buffer, 0, buffer.length)) != -1) {
+                        outputStream.write(buffer, 0, length);
                     }
 
-                    return builder.toString();
+                    result.append(new String(outputStream.toByteArray()));
+                    outputStream.flush();
+
+                    return result.toString();
 
                 } catch(IOException io) {
                     io.printStackTrace();
                     return String.format(context.getString(R.string.search_error_message), responseCode, responseMessage);
+                } finally {
+                    closeStream(inputStream, outputStream, connection);
                 }
             }
 
@@ -96,6 +109,23 @@ public class UrlConnectionModule {
                     httpCallbackListener.onFail(result);
                 }
             }
+
+            private void closeStream(InputStream inputStream, OutputStream outputStream, HttpURLConnection connection) {
+                try {
+                    if (inputStream != null) {
+                        inputStream.close();
+                    }
+                    if (outputStream != null) {
+                        outputStream.close();
+                    }
+                    if (connection != null) {
+                        connection.disconnect();
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
         }.execute();
 
     }
