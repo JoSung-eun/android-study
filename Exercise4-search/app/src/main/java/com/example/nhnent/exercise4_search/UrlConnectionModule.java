@@ -4,11 +4,9 @@ import android.content.Context;
 import android.os.AsyncTask;
 
 import java.io.BufferedInputStream;
-import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
@@ -23,18 +21,25 @@ import java.util.Map;
  */
 
 public class UrlConnectionModule {
+    private static final String API_KEY = "53946c1661edc714a895caebcc092b31";
+    private static final String DAUM_URL = "https://apis.daum.net/search";
+    private static final int MAX_RESULT_COUNT = 20;
+    private static final String OUTPUT_JSON = "json";
 
-    public static void requestSearch(final Context context, final String query, final HttpCallbackListener httpCallbackListener) {
-        final String API_KEY = context.getString(R.string.daum_api_key);
-        final String DAUM_URL = context.getString(R.string.daum_search_url);
+    private static final String JSON_ERROR_FORMAT = "{'responseCode':%d, 'message':'%s'}";
 
-        final Map<String, String> params = new HashMap<>();
+    public static void requestDaumSearch(String path, String query, int pageNo, HttpCallbackListener httpCallbackListener) {
+        Map<String, String> params = new HashMap<>();
         params.put("apikey", API_KEY);
         params.put("q", query);
-        params.put("result", "20");
-        params.put("pageno", "1");
-        params.put("output", "json");
+        params.put("result", String.valueOf(MAX_RESULT_COUNT));
+        params.put("pageno", String.valueOf(pageNo));
+        params.put("output", OUTPUT_JSON);
 
+        getRequest(path, params, httpCallbackListener);
+    }
+
+    private static void getRequest(final String path, final Map<String, String> params, final HttpCallbackListener httpCallbackListener) {
         new AsyncTask<Void, Void, String>() {
             StringBuilder urlBuilder = new StringBuilder();
 
@@ -43,7 +48,7 @@ public class UrlConnectionModule {
             @Override
             protected void onPreExecute() {
                 try {
-                    urlBuilder.append(DAUM_URL).append("?");
+                    urlBuilder.append(DAUM_URL).append(path).append("?");
                     for (String key : params.keySet()) {
                         if (urlBuilder.length() > 0) {
                             urlBuilder.append('&');
@@ -94,7 +99,7 @@ public class UrlConnectionModule {
 
                 } catch(IOException io) {
                     io.printStackTrace();
-                    return String.format(context.getString(R.string.search_error_message), responseCode, responseMessage);
+                    return String.format(Locale.US, JSON_ERROR_FORMAT, responseCode, responseMessage);
                 } finally {
                     closeStream(inputStream, outputStream, connection);
                 }
@@ -127,7 +132,6 @@ public class UrlConnectionModule {
             }
 
         }.execute();
-
     }
 
 }

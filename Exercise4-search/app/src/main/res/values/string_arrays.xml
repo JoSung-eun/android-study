@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="search_options">
+        <item>@string/search_web</item>
+        <item>@string/search_blog</item>
+        <item>@string/search_board</item>
+        <item>@string/search_cafe</item>
+    </string-array>
+
+    <string-array name="search_path">
+        <item>@string/search_web_path</item>
+        <item>@string/search_blog_path</item>
+        <item>@string/search_board_path</item>
+        <item>@string/search_cafe_path</item>
+    </string-array>
+
+</resources>

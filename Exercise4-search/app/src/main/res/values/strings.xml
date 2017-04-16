@@ -1,7 +1,16 @@
 <resources>
     <string name="app_name">Exercise4-search</string>
-    <string name="daum_api_key">53946c1661edc714a895caebcc092b31</string>
-    <string name="daum_search_url">https://apis.daum.net/search/web</string>
-    <string name="search_error_message">"{'responseCode':%1$d, 'message':'%2$s'}"</string>
+
+    <string name="text_loading">Loading...</string>
     <string name="search_btn_label">search</string>
+
+    <string name="search_web">웹</string>
+    <string name="search_blog">블로그</string>
+    <string name="search_board">게시판</string>
+    <string name="search_cafe">카페</string>
+
+    <string name="search_web_path">/web</string>
+    <string name="search_blog_path">/blog</string>
+    <string name="search_board_path">/board</string>
+    <string name="search_cafe_path">/cafe</string>
 </resources>
