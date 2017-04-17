@@ -1,6 +1,5 @@
-package com.example.nhnent.exercise4_search;
+package com.example.searchmodule;
 
-import android.content.Context;
 import android.os.AsyncTask;
 
 import java.io.BufferedInputStream;
@@ -20,7 +19,7 @@ import java.util.Map;
  * Created by nhnent on 2017. 4. 12..
  */
 
-public class UrlConnectionModule {
+public class HttpUrlConnectionModule {
     private static final String API_KEY = "53946c1661edc714a895caebcc092b31";
     private static final String DAUM_URL = "https://apis.daum.net/search";
     private static final int MAX_RESULT_COUNT = 20;

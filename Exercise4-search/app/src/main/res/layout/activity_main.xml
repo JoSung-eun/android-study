@@ -15,9 +15,8 @@
         android:layout_height="60dp">
         <Spinner
             android:id="@+id/spinner"
-            android:layout_width="0px"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="2"
             android:spinnerMode="dropdown"/>
         <EditText
             android:id="@+id/edit_query"

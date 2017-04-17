@@ -13,6 +13,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import com.example.searchmodule.HttpCallbackListener;
+import com.example.searchmodule.VolleySearchModule;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 
@@ -62,7 +64,7 @@ public class MainActivity extends Activity implements AdapterView.OnItemSelected
                 query = queryEdit.getText().toString().trim();
                 pageNo = 1;
 
-                /*UrlConnectionModule.requestDaumSearch(selectedPath, query, pageNo, new HttpCallbackListener() {
+                /*HttpUrlConnectionModule.requestDaumSearch(selectedPath, query, pageNo, new HttpCallbackListener() {
                     @Override
                     public void onSuccess(String data) {
                         try {
@@ -84,7 +86,7 @@ public class MainActivity extends Activity implements AdapterView.OnItemSelected
                     }
                 });*/
 
-                VolleyModule.requestDaumSearch(MainActivity.this, selectedPath, query, pageNo, new HttpCallbackListener() {
+                VolleySearchModule.requestDaumSearch(MainActivity.this, selectedPath, query, pageNo, new HttpCallbackListener() {
                     @Override
                     public void onSuccess(String data) {
                         try {

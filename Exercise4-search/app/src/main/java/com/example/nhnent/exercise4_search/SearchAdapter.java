@@ -1,6 +1,5 @@
 package com.example.nhnent.exercise4_search;
 
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
@@ -13,8 +12,9 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.example.searchmodule.HttpCallbackListener;
+import com.example.searchmodule.VolleySearchModule;
 import com.google.gson.Gson;
-import com.google.gson.JsonSyntaxException;
 
 import java.util.List;
 
@@ -130,8 +130,10 @@ public class SearchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     }
 
     public void clear() {
-        items.clear();
-        notifyDataSetChanged();
+        if (items != null) {
+            items.clear();
+            notifyDataSetChanged();
+        }
     }
 
     public void loadMore(RecyclerView recyclerView, String path, String query, int pageNo) {
@@ -143,7 +145,7 @@ public class SearchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             }
         });
 
-        /*UrlConnectionModule.requestDaumSearch(path, query, pageNo, new HttpCallbackListener() {
+        /*HttpUrlConnectionModule.requestDaumSearch(path, query, pageNo, new HttpCallbackListener() {
             @Override
             public void onSuccess(String data) {
                 DaumSearchResult daumSearchResult = new Gson().fromJson(data, DaumSearchResult.class);
@@ -165,12 +167,12 @@ public class SearchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             }
         });*/
 
-        VolleyModule.requestDaumSearch(recyclerView.getContext(), path, query, pageNo, new HttpCallbackListener() {
+        VolleySearchModule.requestDaumSearch(recyclerView.getContext(), path, query, pageNo, new HttpCallbackListener() {
             @Override
             public void onSuccess(String data) {
                 DaumSearchResult daumSearchResult = new Gson().fromJson(data, DaumSearchResult.class);
+                Log.d("MAIN", data);
                 items.remove(null);
-                notifyDataSetChanged();
 
                 items.addAll(daumSearchResult.getChannel().getItem());
                 notifyDataSetChanged();

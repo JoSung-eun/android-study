@@ -1,7 +1,6 @@
-package com.example.nhnent.exercise4_search;
+package com.example.searchmodule;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -19,7 +18,7 @@ import java.util.Map;
  * Created by Sung-EunJo on 2017. 4. 16..
  */
 
-public class VolleyModule {
+public class VolleySearchModule {
     private static final String API_KEY = "53946c1661edc714a895caebcc092b31";
     private static final String DAUM_URL = "https://apis.daum.net/search";
     private static final int MAX_RESULT_COUNT = 20;
@@ -67,7 +66,7 @@ public class VolleyModule {
                 }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        httpCallbackListener.onFail(error.getMessage());
+                        httpCallbackListener.onFail(new String(error.networkResponse.data));
                     }
         });
 

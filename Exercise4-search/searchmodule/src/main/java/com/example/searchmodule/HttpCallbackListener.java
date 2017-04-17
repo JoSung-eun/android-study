@@ -1,6 +1,4 @@
-package com.example.nhnent.exercise4_search;
-
-import com.google.gson.JsonArray;
+package com.example.searchmodule;
 
 /**
  * Created by nhnent on 2017. 4. 12..
