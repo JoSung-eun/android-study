@@ -16,7 +16,7 @@ import android.widget.ImageView;
  * Created by nhnent on 2017. 4. 17..
  */
 
-public class CachingBitmap extends Activity {
+public class MemCachingBitmap extends Activity {
     private LruCache<String, Bitmap> memoryCache;
     ImageView imageView;
     Button clearButton;
