@@ -16,6 +16,7 @@ import android.widget.Spinner;
 import com.example.searchmodule.HttpCallbackListener;
 import com.example.searchmodule.VolleySearchModule;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonSyntaxException;
 
 import java.util.List;
@@ -89,7 +90,8 @@ public class MainActivity extends Activity implements AdapterView.OnItemSelected
                 VolleySearchModule.requestDaumSearch(MainActivity.this, selectedPath, query, pageNo, new HttpCallbackListener() {
                     @Override
                     public void onSuccess(String data) {
-                        try {
+                        try { // TODO: 2017. 4. 18. GsonBuilder
+                            GsonBuilder gsonBuilder = new GsonBuilder();
                             DaumSearchResult daumSearchResult = new Gson().fromJson(data, DaumSearchResult.class);
                             items = daumSearchResult.getChannel().getItem();
                             adapter = new SearchAdapter(items);

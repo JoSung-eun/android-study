@@ -24,8 +24,9 @@ public class VolleySearchModule {
     private static final int MAX_RESULT_COUNT = 20;
     private static final String OUTPUT_JSON = "json";
 
-    static RequestQueue requestQueue;
+    private static RequestQueue requestQueue;
 
+    // TODO: 2017. 4. 18.  
     public static void requestDaumSearch(Context context, String path, String query, int pageNo, HttpCallbackListener httpCallbackListener) {
         Map<String, String> params = new HashMap<>();
         params.put("apikey", API_KEY);
@@ -41,7 +42,7 @@ public class VolleySearchModule {
 
     private static void getRequest(String path, Map<String, String> params, final HttpCallbackListener httpCallbackListener) {
         StringBuilder urlBuilder = new StringBuilder();
-        urlBuilder.append(DAUM_URL).append(path).append("?");
+        urlBuilder.append(DAUM_URL).append(path).append("?"); // TODO: 2017. 4. 18.  
         try {
             urlBuilder.append(DAUM_URL).append(path).append("?");
             for (String key : params.keySet()) {
@@ -65,7 +66,7 @@ public class VolleySearchModule {
                     }
                 }, new Response.ErrorListener() {
                     @Override
-                    public void onErrorResponse(VolleyError error) {
+                    public void onErrorResponse(VolleyError error) { // TODO: 2017. 4. 18.  
                         httpCallbackListener.onFail(new String(error.networkResponse.data));
                     }
         });
