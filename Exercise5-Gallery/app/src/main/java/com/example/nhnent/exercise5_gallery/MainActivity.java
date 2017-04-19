@@ -32,11 +32,11 @@ public class MainActivity extends Activity {
         galleryAdapter = new GalleryAdapter(this, imageKeys);
         recyclerView.setAdapter(galleryAdapter);
 
-        recyclerView.setLayoutManager(new GridLayoutManager(this, 4));
+        recyclerView.setLayoutManager(new GridLayoutManager(this, 3));
     }
 
     private void initImageKeys() {
-        for (int i = 0; i < 5; i ++) {
+        for (int i = 0; i < 50; i ++) {
             imageKeys.add(String.valueOf(i));
         }
     }

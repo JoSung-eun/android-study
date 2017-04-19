@@ -23,7 +23,7 @@ public class GalleryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     GalleryAdapter(Context context, List<String> imageKeys) {
         this.imageKeys = imageKeys;
-        imageCache = new ImageCache(context);
+        imageCache = new ImageCache();
     }
 
     @Override

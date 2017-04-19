@@ -36,11 +36,7 @@ public class ImageCache {
     private LruCache<String, Bitmap> memoryCache;
     private DiskLruCache diskCache;
 
-    private Context context;
-
-    public ImageCache(Context context) {
-        this.context = context;
-
+    public ImageCache() {
         memoryCache = new LruCache<String, Bitmap>(MEMORY_CACHE_SIZE) {
             @Override
             protected int sizeOf(String key, Bitmap value) {
@@ -60,8 +56,9 @@ public class ImageCache {
             imageView.setImageBitmap(getFromMemoryCache(key));
             Log.d("ImageCache", key + " - get from memory cache");
         }
-
-        new BitmapWorkerTask(imageView).execute(key); //async task
+        else {
+            new BitmapWorkerTask(imageView).execute(key); //async task
+        }
     }
 
     public void close() {
@@ -74,9 +71,11 @@ public class ImageCache {
 
     private class BitmapWorkerTask extends AsyncTask<String, Void, Bitmap> {
         private WeakReference<ImageView> imageViewReference;
+        private Context context;
 
         BitmapWorkerTask(ImageView imageView) {
             this.imageViewReference = new WeakReference<>(imageView);
+            context = imageView.getContext();
         }
 
         @Override
@@ -86,32 +85,71 @@ public class ImageCache {
             Bitmap bitmap = getFromDiskCache(key);
 
             if (bitmap == null) {
-                // network request
                 ImageRequestModule.getImage(context, key, new ImageCallbackListener() {
                     @Override
                     public void onSuccess(Bitmap data) {
                         addToMemoryCache(key, data);
                         addToDiskCache(key, data);
-                        imageViewReference.get().setImageBitmap(data);
+                        if (imageViewReference.get() != null) {
+                            imageViewReference.get().setImageBitmap(data);
+                        }
                     }
 
                     @Override
                     public void onFail(String data) {
+                        imageViewReference.clear();
                         Log.e("ImageCache", "error" + data);
                     }
                 });
             }
             else {
                 addToMemoryCache(key, bitmap);
+                return bitmap;
             }
             return null;
         }
 
-        /*@Override
+        @Override
+        protected void onPostExecute(Bitmap bitmap) {
+            if (imageViewReference.get() != null && bitmap != null) {
+                imageViewReference.get().setImageBitmap(bitmap);
+            }
+        }
+    }
+
+    /*private class BitmapWorkerTask extends AsyncTask<String, Void, Bitmap> {
+        private WeakReference<ImageView> imageViewReference;
+
+        BitmapWorkerTask(ImageView imageView) {
+            this.imageViewReference = new WeakReference<>(imageView);
+        }
+
+        @Override
+        protected Bitmap doInBackground(String... params) {
+            final String key = params[0];
+
+            ImageRequestModule.getImage(context, key, new ImageCallbackListener() {
+                @Override
+                public void onSuccess(Bitmap data) {
+                    addToMemoryCache(key, data);
+                    addToDiskCache(key, data);
+                    imageViewReference.get().setImageBitmap(data);
+                }
+
+                @Override
+                public void onFail(String data) {
+                    Log.e("ImageCache", "error" + data);
+                }
+            });
+
+            return null;
+        }
+
+        *//*@Override
         protected void onPostExecute(Bitmap bitmap) {
             imageViewReference.get().setImageBitmap(bitmap);
-        }*/
-    }
+        }*//*
+    }*/
 
     private void addToMemoryCache(String key, Bitmap bitmap) {
         if (getFromMemoryCache(key) == null) {
