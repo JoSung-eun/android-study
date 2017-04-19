@@ -42,7 +42,7 @@ public class VolleySearchModule {
 
     private static void getRequest(String path, Map<String, String> params, final HttpCallbackListener httpCallbackListener) {
         StringBuilder urlBuilder = new StringBuilder();
-        urlBuilder.append(DAUM_URL).append(path).append("?"); // TODO: 2017. 4. 18.  
+//        urlBuilder.append(DAUM_URL).append(path).append("?"); // TODO: 2017. 4. 18.
         try {
             urlBuilder.append(DAUM_URL).append(path).append("?");
             for (String key : params.keySet()) {

@@ -25,14 +25,15 @@ public class MainActivity extends Activity {
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
 
-        layoutManager = new LinearLayoutManager(this);
+        //layoutManager = new LinearLayoutManager(this);
         //layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-        //layoutManager = new GridLayoutManager(this, 2);
+        layoutManager = new GridLayoutManager(this, 4);
         //layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setClickable(true);
 
         recyclerView.addItemDecoration(new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL));
+        recyclerView.addItemDecoration(new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.HORIZONTAL));
 
         String[] dataSet = { "mike", "angel", "crow", "john",
                 "ginnie", "sally", "cohen", "rice", "mike", "angel", "crow", "john",
