@@ -33,7 +33,7 @@ public class GalleryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) { // TODO: 2017. 4. 20. itemkeys item 다 끝나야 출력.. 수정 필요 
         ImageViewHolder imageViewHolder = (ImageViewHolder) holder;
         imageCache.loadBitmap(imageKeys.get(position), imageViewHolder.imageView);
     }
