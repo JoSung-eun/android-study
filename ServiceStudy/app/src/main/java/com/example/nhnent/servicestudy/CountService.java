@@ -24,7 +24,7 @@ public class CountService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) { // 원하는 서비스 동작
         super.onStartCommand(intent, flags, startId);
         Log.d("CountService", "start command");
-        /*while (true) { //anr
+        /*while (true) { //ANR
             currentNumber ++;
             try {
                 Thread.sleep(1000);

@@ -24,6 +24,7 @@
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </service>
+        <service android:name=".CountCallbackService"/>
         <service android:name=".MessengerService"
             android:exported="true"
             android:enabled="true">

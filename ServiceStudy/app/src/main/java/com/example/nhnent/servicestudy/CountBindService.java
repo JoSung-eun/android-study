@@ -38,6 +38,7 @@ public class CountBindService extends Service {
                 @Override
                 public void run() {
                     while (true) {
+                        countThread.isInterrupted();// TODO: 2017. 4. 21.  
                         currentNumber ++;
 
                         Log.d("CountService", "current number : " + currentNumber);
@@ -62,7 +63,7 @@ public class CountBindService extends Service {
         Log.d("CountService", "destroyed");
 
         if (countThread != null) {
-            countThread.interrupt();
+            countThread.interrupt(); // TODO: 2017. 4. 21.  
             countThread = null;
             currentNumber = 0;
         }
