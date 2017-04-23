@@ -22,7 +22,7 @@ public class MainActivity extends Activity {
     List<String> imageKeys = new ArrayList<>();
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) { // TODO: 2017. 4. 23. image resize 추가
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -36,14 +36,14 @@ public class MainActivity extends Activity {
     }
 
     private void initImageKeys() {
-        for (int i = 0; i < 100; i ++) {
+        for (int i = 0; i < 1000; i ++) {
             imageKeys.add(String.valueOf(i));
         }
     }
 
     @Override
-    protected void onStop() {
-        super.onStop();
+    protected void onDestroy() {
+        super.onDestroy();
         galleryAdapter.close();
     }
 }

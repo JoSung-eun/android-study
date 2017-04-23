@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="true"
+        jar="/Users/sung-eun/.android/build-cache/2412ec22b2cc0a1b452220b6566927480491c690/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="1108575c7dc7b7f5b378b3290ac90de81a9b8830">
+        <dex dex="/Users/sung-eun/android-study/DisplayingBitmapsSample/Application/build/intermediates/transforms/dex/debug/folders/1000/10/classes_de0afc33a1bdd7215f8f38e0f6c6e14467a5c405/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/sung-eun/.android/build-cache/287dd4bc4c2bf2ca647ce922e7290f6a40da2845/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="4700f436ede140fb804204f806c9cc3f08e386f4">
+        <dex dex="/Users/sung-eun/android-study/DisplayingBitmapsSample/Application/build/intermediates/transforms/dex/debug/folders/1000/10/classes_6d43c2930a90ce805f3e5401eb64d413f90cfa5c/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/sung-eun/android-study/DisplayingBitmapsSample/Application/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="eab56efc535c71fb10e0c591a24f420b1c73c4af">
+        <dex dex="/Users/sung-eun/android-study/DisplayingBitmapsSample/Application/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_f4e756a63b4c91dfc915e42cb8f61ad2d2e56ce2/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/sung-eun/.android/build-cache/0fb1f2a08c64bb8ea5c1d60a116694418de56d3e/output/jars/libs/internal_impl-25.0.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="f83b00041ecfba705603fec40363416c7de69719">
+        <dex dex="/Users/sung-eun/android-study/DisplayingBitmapsSample/Application/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-25.0.1_c8606933a559a85ebad62ec866193165ec0fac66/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/sung-eun/android-study/DisplayingBitmapsSample/Application/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="510aa6efc159983dfbffa676a0dae37568c0a46f">
+        <dex dex="/Users/sung-eun/android-study/DisplayingBitmapsSample/Application/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_aee5824b718e037014625fdd55f0ec12da0b94ec/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/sung-eun/.android/build-cache/295b701935efd6e0e039b6fb81dbc49d6988993e/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="00d4c8eebf2b681073c72a26bd0849549e51c7cb">
+        <dex dex="/Users/sung-eun/android-study/DisplayingBitmapsSample/Application/build/intermediates/transforms/dex/debug/folders/1000/10/classes_e86c3287413c258ba9c07afcc12c7887ce4a9678/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/sung-eun/.android/build-cache/4dce5a29efa1eecc8686cee9bcf39872780e0e82/output/jars/libs/internal_impl-25.0.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="e5343c9d19cb19ff55f6b268c7f3fe8c9d224f6f">
+        <dex dex="/Users/sung-eun/android-study/DisplayingBitmapsSample/Application/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-25.0.1_2c89d73e8a3f16749a6d8c98e3dec81714f78c50/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/sung-eun/.android/build-cache/295b701935efd6e0e039b6fb81dbc49d6988993e/output/jars/libs/internal_impl-25.0.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="c5b7145fb34779b6639147b8f2f8dd77c0db771b">
+        <dex dex="/Users/sung-eun/android-study/DisplayingBitmapsSample/Application/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-25.0.1_7b728c9646d20e9c9e9e2bc15dbff275dd9607e2/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/sung-eun/.android/build-cache/0fb1f2a08c64bb8ea5c1d60a116694418de56d3e/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="6a1479afe9f1b3645e1cd9a87318976893472818">
+        <dex dex="/Users/sung-eun/android-study/DisplayingBitmapsSample/Application/build/intermediates/transforms/dex/debug/folders/1000/10/classes_4386fa7cdb373bd3dc8ab3b97a889956631e7425/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/sung-eun/.android/build-cache/4a76b62a6f26e3341852e1e8e88d975e28b4f3f7/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="772bed2d992b67b9d0327f766cc95cd63031dcd3">
+        <dex dex="/Users/sung-eun/android-study/DisplayingBitmapsSample/Application/build/intermediates/transforms/dex/debug/folders/1000/10/classes_915ff8ade8dae848ec0a00a8441df72f8033dd6f/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/sung-eun/.android/build-cache/69d27ab241d1217ad27daf86d0889135ec6fec6c/output/jars/libs/internal_impl-25.0.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="3af8cc51ef7088e56f132780da8c0bd858b6a6ad">
+        <dex dex="/Users/sung-eun/android-study/DisplayingBitmapsSample/Application/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-25.0.1_2340f46645dede450e973f5140baded13a88c6e9/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/sung-eun/.android/build-cache/8fbcea2a0e9546e155bee228357d209e6603da32/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="f7ac4b327fdb9e2ee386f5adc46164927658de4b">
+        <dex dex="/Users/sung-eun/android-study/DisplayingBitmapsSample/Application/build/intermediates/transforms/dex/debug/folders/1000/10/classes_edd288bbeab03cbe65153f2f8011e945b998da10/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/sung-eun/.android/build-cache/69d27ab241d1217ad27daf86d0889135ec6fec6c/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="51eba4a4dd73044f90a9d58dd7ca34adbebfcf4e">
+        <dex dex="/Users/sung-eun/android-study/DisplayingBitmapsSample/Application/build/intermediates/transforms/dex/debug/folders/1000/10/classes_4d5b17653db75f276d24d2712148d9fd19aaaa06/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/sung-eun/.android/build-cache/f36173312744f91d4dc3095239a827c28701f90d/output/jars/libs/internal_impl-25.0.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="c0bd6ffb002a85b5e7cad29f8558d1cc59539679">
+        <dex dex="/Users/sung-eun/android-study/DisplayingBitmapsSample/Application/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-25.0.1_a7a2db2c6418a42a21941457b30c9679b5b784c0/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/sung-eun/.android/build-cache/33c590eb5688cb71dcb28a95616918563816f50e/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
+        <dex dex="/Users/sung-eun/android-study/DisplayingBitmapsSample/Application/build/intermediates/transforms/dex/debug/folders/1000/10/classes_a54a48442dfdf13840e011a55984406942f12a16/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/sung-eun/.android/build-cache/7ed6163974b041e521cd5119a148109a740b8e0c/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="b24e1c688744078e1fa833ffadf696794761bbe5">
+        <dex dex="/Users/sung-eun/android-study/DisplayingBitmapsSample/Application/build/intermediates/transforms/dex/debug/folders/1000/10/classes_50a0c5e92e689ff759363107705bdad7c686c7c8/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/sung-eun/Library/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/25.0.1/support-annotations-25.0.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="a09194311f8f89c3e6db09d79f50897a889d615e">
+        <dex dex="/Users/sung-eun/android-study/DisplayingBitmapsSample/Application/build/intermediates/transforms/dex/debug/folders/1000/10/support-annotations-25.0.1_b2b17042878f4b5eff4e12143a82d673784b822f/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/sung-eun/.android/build-cache/f36173312744f91d4dc3095239a827c28701f90d/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="26c6eef571592c91f29e56fda0bac73321de0c92">
+        <dex dex="/Users/sung-eun/android-study/DisplayingBitmapsSample/Application/build/intermediates/transforms/dex/debug/folders/1000/10/classes_4be0c5626ec4f81cf289ab5e9e4ad9e7ad326793/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/sung-eun/.android/build-cache/4dce5a29efa1eecc8686cee9bcf39872780e0e82/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="bc7e99e8d0fc279a05aa91378530f467ad62d443">
+        <dex dex="/Users/sung-eun/android-study/DisplayingBitmapsSample/Application/build/intermediates/transforms/dex/debug/folders/1000/10/classes_61092a3031eeb16fa3857ed71e50f728e3b8b8c1/classes.dex" />
+    </item>
+
+</items>

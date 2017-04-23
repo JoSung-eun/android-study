@@ -2,6 +2,9 @@ package com.example.nhnent.exercise5_gallery;
 
 import android.content.Context;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.media.Image;
+import android.os.AsyncTask;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -10,7 +13,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.example.nhnent.exercise5_gallery.cache.ImageCache;
+import com.example.nhnent.exercise5_gallery.network.ImageRequestModule;
 
+import java.lang.ref.WeakReference;
 import java.util.List;
 
 /**
@@ -33,7 +38,7 @@ public class GalleryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) { // TODO: 2017. 4. 20. itemkeys item 다 끝나야 출력.. 수정 필요 
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         ImageViewHolder imageViewHolder = (ImageViewHolder) holder;
         imageCache.loadBitmap(imageKeys.get(position), imageViewHolder.imageView);
     }
@@ -48,6 +53,12 @@ public class GalleryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     public void close() {
         imageCache.close();
+    }
+
+    @Override
+    public void onViewDetachedFromWindow(RecyclerView.ViewHolder holder) {
+        Log.d("GalleryAdapter", "detached " + holder.getAdapterPosition());
+        imageCache.cancel(((ImageViewHolder) holder).imageView, String.valueOf(holder.getAdapterPosition()));
     }
 
     private class ImageViewHolder extends RecyclerView.ViewHolder {

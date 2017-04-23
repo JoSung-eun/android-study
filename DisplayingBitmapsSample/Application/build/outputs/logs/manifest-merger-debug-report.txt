@@ -1,0 +1,103 @@
+-- Merging decision tree log ---
+manifest
+ADDED from /Users/sung-eun/android-study/DisplayingBitmapsSample/Application/src/main/AndroidManifest.xml:18:1-54:12
+	package
+		ADDED from /Users/sung-eun/android-study/DisplayingBitmapsSample/Application/src/main/AndroidManifest.xml:19:5-52
+	android:versionName
+		ADDED from /Users/sung-eun/android-study/DisplayingBitmapsSample/Application/src/main/AndroidManifest.xml:21:5-30
+		INJECTED from /Users/sung-eun/android-study/DisplayingBitmapsSample/Application/src/main/AndroidManifest.xml
+		INJECTED from /Users/sung-eun/android-study/DisplayingBitmapsSample/Application/src/main/AndroidManifest.xml
+	android:versionCode
+		ADDED from /Users/sung-eun/android-study/DisplayingBitmapsSample/Application/src/main/AndroidManifest.xml:20:5-28
+		INJECTED from /Users/sung-eun/android-study/DisplayingBitmapsSample/Application/src/main/AndroidManifest.xml
+		INJECTED from /Users/sung-eun/android-study/DisplayingBitmapsSample/Application/src/main/AndroidManifest.xml
+	xmlns:android
+		ADDED from /Users/sung-eun/android-study/DisplayingBitmapsSample/Application/src/main/AndroidManifest.xml:18:11-69
+uses-permission#android.permission.INTERNET
+ADDED from /Users/sung-eun/android-study/DisplayingBitmapsSample/Application/src/main/AndroidManifest.xml:25:5-67
+	android:name
+		ADDED from /Users/sung-eun/android-study/DisplayingBitmapsSample/Application/src/main/AndroidManifest.xml:25:22-64
+uses-permission#android.permission.WRITE_EXTERNAL_STORAGE
+ADDED from /Users/sung-eun/android-study/DisplayingBitmapsSample/Application/src/main/AndroidManifest.xml:26:5-81
+	android:name
+		ADDED from /Users/sung-eun/android-study/DisplayingBitmapsSample/Application/src/main/AndroidManifest.xml:26:22-78
+uses-permission#android.permission.ACCESS_NETWORK_STATE
+ADDED from /Users/sung-eun/android-study/DisplayingBitmapsSample/Application/src/main/AndroidManifest.xml:27:5-79
+	android:name
+		ADDED from /Users/sung-eun/android-study/DisplayingBitmapsSample/Application/src/main/AndroidManifest.xml:27:22-76
+application
+ADDED from /Users/sung-eun/android-study/DisplayingBitmapsSample/Application/src/main/AndroidManifest.xml:29:5-52:19
+MERGED from [com.android.support:gridlayout-v7:25.0.1] /Users/sung-eun/.android/build-cache/287dd4bc4c2bf2ca647ce922e7290f6a40da2845/output/AndroidManifest.xml:22:5-20
+MERGED from [com.android.support:cardview-v7:25.0.1] /Users/sung-eun/.android/build-cache/2412ec22b2cc0a1b452220b6566927480491c690/output/AndroidManifest.xml:22:5-20
+MERGED from [com.android.support:appcompat-v7:25.0.1] /Users/sung-eun/.android/build-cache/8fbcea2a0e9546e155bee228357d209e6603da32/output/AndroidManifest.xml:25:5-20
+MERGED from [com.android.support:support-v4:25.0.1] /Users/sung-eun/.android/build-cache/33c590eb5688cb71dcb28a95616918563816f50e/output/AndroidManifest.xml:25:5-20
+MERGED from [com.android.support:support-fragment:25.0.1] /Users/sung-eun/.android/build-cache/f36173312744f91d4dc3095239a827c28701f90d/output/AndroidManifest.xml:25:5-20
+MERGED from [com.android.support:support-media-compat:25.0.1] /Users/sung-eun/.android/build-cache/0fb1f2a08c64bb8ea5c1d60a116694418de56d3e/output/AndroidManifest.xml:25:5-20
+MERGED from [com.android.support:support-core-ui:25.0.1] /Users/sung-eun/.android/build-cache/4dce5a29efa1eecc8686cee9bcf39872780e0e82/output/AndroidManifest.xml:25:5-20
+MERGED from [com.android.support:support-core-utils:25.0.1] /Users/sung-eun/.android/build-cache/295b701935efd6e0e039b6fb81dbc49d6988993e/output/AndroidManifest.xml:25:5-20
+MERGED from [com.android.support:animated-vector-drawable:25.0.1] /Users/sung-eun/.android/build-cache/4a76b62a6f26e3341852e1e8e88d975e28b4f3f7/output/AndroidManifest.xml:22:5-20
+MERGED from [com.android.support:support-vector-drawable:25.0.1] /Users/sung-eun/.android/build-cache/7ed6163974b041e521cd5119a148109a740b8e0c/output/AndroidManifest.xml:23:5-20
+MERGED from [com.android.support:support-compat:25.0.1] /Users/sung-eun/.android/build-cache/69d27ab241d1217ad27daf86d0889135ec6fec6c/output/AndroidManifest.xml:25:5-20
+	android:label
+		ADDED from /Users/sung-eun/android-study/DisplayingBitmapsSample/Application/src/main/AndroidManifest.xml:30:9-41
+	android:allowBackup
+		ADDED from /Users/sung-eun/android-study/DisplayingBitmapsSample/Application/src/main/AndroidManifest.xml:29:18-44
+	android:icon
+		ADDED from /Users/sung-eun/android-study/DisplayingBitmapsSample/Application/src/main/AndroidManifest.xml:32:9-45
+	android:description
+		ADDED from /Users/sung-eun/android-study/DisplayingBitmapsSample/Application/src/main/AndroidManifest.xml:31:9-52
+	android:theme
+		ADDED from /Users/sung-eun/android-study/DisplayingBitmapsSample/Application/src/main/AndroidManifest.xml:33:9-44
+activity#com.example.android.displayingbitmaps.ui.ImageGridActivity
+ADDED from /Users/sung-eun/android-study/DisplayingBitmapsSample/Application/src/main/AndroidManifest.xml:35:9-41:20
+	android:label
+		ADDED from /Users/sung-eun/android-study/DisplayingBitmapsSample/Application/src/main/AndroidManifest.xml:36:19-51
+	android:name
+		ADDED from /Users/sung-eun/android-study/DisplayingBitmapsSample/Application/src/main/AndroidManifest.xml:35:19-55
+intent-filter#android.intent.action.MAIN+android.intent.category.LAUNCHER
+ADDED from /Users/sung-eun/android-study/DisplayingBitmapsSample/Application/src/main/AndroidManifest.xml:37:13-40:29
+action#android.intent.action.MAIN
+ADDED from /Users/sung-eun/android-study/DisplayingBitmapsSample/Application/src/main/AndroidManifest.xml:38:17-69
+	android:name
+		ADDED from /Users/sung-eun/android-study/DisplayingBitmapsSample/Application/src/main/AndroidManifest.xml:38:25-66
+category#android.intent.category.LAUNCHER
+ADDED from /Users/sung-eun/android-study/DisplayingBitmapsSample/Application/src/main/AndroidManifest.xml:39:17-77
+	android:name
+		ADDED from /Users/sung-eun/android-study/DisplayingBitmapsSample/Application/src/main/AndroidManifest.xml:39:27-74
+activity#com.example.android.displayingbitmaps.ui.ImageDetailActivity
+ADDED from /Users/sung-eun/android-study/DisplayingBitmapsSample/Application/src/main/AndroidManifest.xml:43:9-50:20
+	android:label
+		ADDED from /Users/sung-eun/android-study/DisplayingBitmapsSample/Application/src/main/AndroidManifest.xml:45:13-45
+	android:parentActivityName
+		ADDED from /Users/sung-eun/android-study/DisplayingBitmapsSample/Application/src/main/AndroidManifest.xml:46:13-63
+	android:theme
+		ADDED from /Users/sung-eun/android-study/DisplayingBitmapsSample/Application/src/main/AndroidManifest.xml:47:13-59
+	android:name
+		ADDED from /Users/sung-eun/android-study/DisplayingBitmapsSample/Application/src/main/AndroidManifest.xml:44:13-51
+meta-data#android.support.PARENT_ACTIVITY
+ADDED from /Users/sung-eun/android-study/DisplayingBitmapsSample/Application/src/main/AndroidManifest.xml:48:13-49:57
+	android:value
+		ADDED from /Users/sung-eun/android-study/DisplayingBitmapsSample/Application/src/main/AndroidManifest.xml:49:17-54
+	android:name
+		ADDED from /Users/sung-eun/android-study/DisplayingBitmapsSample/Application/src/main/AndroidManifest.xml:48:24-70
+uses-sdk
+INJECTED from /Users/sung-eun/android-study/DisplayingBitmapsSample/Application/src/main/AndroidManifest.xml reason: use-sdk injection requested
+MERGED from [com.android.support:gridlayout-v7:25.0.1] /Users/sung-eun/.android/build-cache/287dd4bc4c2bf2ca647ce922e7290f6a40da2845/output/AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:cardview-v7:25.0.1] /Users/sung-eun/.android/build-cache/2412ec22b2cc0a1b452220b6566927480491c690/output/AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:appcompat-v7:25.0.1] /Users/sung-eun/.android/build-cache/8fbcea2a0e9546e155bee228357d209e6603da32/output/AndroidManifest.xml:21:5-23:78
+MERGED from [com.android.support:support-v4:25.0.1] /Users/sung-eun/.android/build-cache/33c590eb5688cb71dcb28a95616918563816f50e/output/AndroidManifest.xml:21:5-23:54
+MERGED from [com.android.support:support-fragment:25.0.1] /Users/sung-eun/.android/build-cache/f36173312744f91d4dc3095239a827c28701f90d/output/AndroidManifest.xml:21:5-23:60
+MERGED from [com.android.support:support-media-compat:25.0.1] /Users/sung-eun/.android/build-cache/0fb1f2a08c64bb8ea5c1d60a116694418de56d3e/output/AndroidManifest.xml:21:5-23:63
+MERGED from [com.android.support:support-core-ui:25.0.1] /Users/sung-eun/.android/build-cache/4dce5a29efa1eecc8686cee9bcf39872780e0e82/output/AndroidManifest.xml:21:5-23:58
+MERGED from [com.android.support:support-core-utils:25.0.1] /Users/sung-eun/.android/build-cache/295b701935efd6e0e039b6fb81dbc49d6988993e/output/AndroidManifest.xml:21:5-23:61
+MERGED from [com.android.support:animated-vector-drawable:25.0.1] /Users/sung-eun/.android/build-cache/4a76b62a6f26e3341852e1e8e88d975e28b4f3f7/output/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-vector-drawable:25.0.1] /Users/sung-eun/.android/build-cache/7ed6163974b041e521cd5119a148109a740b8e0c/output/AndroidManifest.xml:21:5-43
+MERGED from [com.android.support:support-compat:25.0.1] /Users/sung-eun/.android/build-cache/69d27ab241d1217ad27daf86d0889135ec6fec6c/output/AndroidManifest.xml:21:5-23:58
+	tools:overrideLibrary
+		ADDED from [com.android.support:appcompat-v7:25.0.1] /Users/sung-eun/.android/build-cache/8fbcea2a0e9546e155bee228357d209e6603da32/output/AndroidManifest.xml:23:9-75
+	android:targetSdkVersion
+		INJECTED from /Users/sung-eun/android-study/DisplayingBitmapsSample/Application/src/main/AndroidManifest.xml
+		INJECTED from /Users/sung-eun/android-study/DisplayingBitmapsSample/Application/src/main/AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from /Users/sung-eun/android-study/DisplayingBitmapsSample/Application/src/main/AndroidManifest.xml
+		INJECTED from /Users/sung-eun/android-study/DisplayingBitmapsSample/Application/src/main/AndroidManifest.xml

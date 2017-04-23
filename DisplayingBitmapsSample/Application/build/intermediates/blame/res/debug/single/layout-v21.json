@@ -1,0 +1,18 @@
+[
+    {
+        "merged": "/Users/sung-eun/android-study/DisplayingBitmapsSample/Application/build/intermediates/res/merged/debug/layout-v21/notification_action.xml",
+        "source": "/Users/sung-eun/.android/build-cache/8fbcea2a0e9546e155bee228357d209e6603da32/output/res/layout-v21/notification_action.xml"
+    },
+    {
+        "merged": "/Users/sung-eun/android-study/DisplayingBitmapsSample/Application/build/intermediates/res/merged/debug/layout-v21/notification_action_tombstone.xml",
+        "source": "/Users/sung-eun/.android/build-cache/8fbcea2a0e9546e155bee228357d209e6603da32/output/res/layout-v21/notification_action_tombstone.xml"
+    },
+    {
+        "merged": "/Users/sung-eun/android-study/DisplayingBitmapsSample/Application/build/intermediates/res/merged/debug/layout-v21/notification_template_custom_big.xml",
+        "source": "/Users/sung-eun/.android/build-cache/8fbcea2a0e9546e155bee228357d209e6603da32/output/res/layout-v21/notification_template_custom_big.xml"
+    },
+    {
+        "merged": "/Users/sung-eun/android-study/DisplayingBitmapsSample/Application/build/intermediates/res/merged/debug/layout-v21/notification_template_icon_group.xml",
+        "source": "/Users/sung-eun/.android/build-cache/8fbcea2a0e9546e155bee228357d209e6603da32/output/res/layout-v21/notification_template_icon_group.xml"
+    }
+]

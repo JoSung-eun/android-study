@@ -1,0 +1,7 @@
+#Sat Apr 22 13:31:10 KST 2017
+base.0=/Users/sung-eun/android-study/DisplayingBitmapsSample/Application/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_aee5824b718e037014625fdd55f0ec12da0b94ec
+renamed.1=classes.dex
+renamed.0=classes2.dex
+file.1=/Users/sung-eun/android-study/DisplayingBitmapsSample/Application/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_f4e756a63b4c91dfc915e42cb8f61ad2d2e56ce2/classes.dex
+base.1=/Users/sung-eun/android-study/DisplayingBitmapsSample/Application/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_f4e756a63b4c91dfc915e42cb8f61ad2d2e56ce2
+file.0=/Users/sung-eun/android-study/DisplayingBitmapsSample/Application/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_aee5824b718e037014625fdd55f0ec12da0b94ec/classes.dex

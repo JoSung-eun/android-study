@@ -2,8 +2,10 @@ package com.example.nhnent.exercise5_gallery.network;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.util.Log;
 import android.widget.ImageView;
 
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -23,10 +25,11 @@ public class ImageRequestModule {
 
         StringBuilder url = new StringBuilder();
         url.append(IMAGE_URL).append("?image=").append(no);
-        requestImage(url.toString(), imageCallbackListener);
+
+        requestImage(no, url.toString(), imageCallbackListener);
     }
 
-    private static void requestImage(String url, final ImageCallbackListener imageCallbackListener) {
+    private static void requestImage(String no, String url, final ImageCallbackListener imageCallbackListener) {
         ImageRequest imageRequest =  new ImageRequest(url,
                 new Response.Listener<Bitmap>() {
                     @Override
@@ -34,7 +37,7 @@ public class ImageRequestModule {
                         imageCallbackListener.onSuccess(response);
                     }
                 },
-                400, 400, ImageView.ScaleType.FIT_CENTER, Bitmap.Config.ARGB_8888,
+                500, 500, ImageView.ScaleType.FIT_CENTER, Bitmap.Config.ARGB_8888,
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
@@ -42,6 +45,7 @@ public class ImageRequestModule {
                     }
                 }
         );
+        imageRequest.setTag(no);
 
         requestQueue.add(imageRequest);
     }
@@ -53,4 +57,18 @@ public class ImageRequestModule {
         return requestQueue;
     }
 
+    public static void cancel(final String no) {
+        if (requestQueue != null) {
+            requestQueue.cancelAll(new RequestQueue.RequestFilter() {
+                @Override
+                public boolean apply(Request<?> request) {
+                    if (request.getTag() == no) {
+                        Log.d("ImageRequestModule", no + " cancel");
+                        return true;
+                    }
+                    return false;
+                }
+            });
+        }
+    }
 }
