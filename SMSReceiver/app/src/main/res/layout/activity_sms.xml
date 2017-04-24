@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.sung_eunjo.smsreceiver.SmsActivity">
+
+    <TextView
+        android:id="@+id/text_sender"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="발신번호"/>
+
+    <TextView
+        android:id="@+id/text_contents"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Contents"/>
+
+    <TextView
+        android:id="@+id/text_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Date"/>
+</LinearLayout>
