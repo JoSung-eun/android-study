@@ -15,14 +15,14 @@ import com.example.nhnent.exercise5_gallery.network.ImageRequestModule;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity { // TODO: 2017. 4. 24. glide 
     RecyclerView recyclerView;
     GalleryAdapter galleryAdapter;
 
     List<String> imageKeys = new ArrayList<>();
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) { // TODO: 2017. 4. 23. image resize 추가
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -32,7 +32,7 @@ public class MainActivity extends Activity {
         galleryAdapter = new GalleryAdapter(this, imageKeys);
         recyclerView.setAdapter(galleryAdapter);
 
-        recyclerView.setLayoutManager(new GridLayoutManager(this, 4));
+        recyclerView.setLayoutManager(new GridLayoutManager(this, 3));
     }
 
     private void initImageKeys() {

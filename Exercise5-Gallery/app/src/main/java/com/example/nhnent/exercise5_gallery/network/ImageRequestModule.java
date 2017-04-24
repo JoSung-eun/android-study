@@ -20,13 +20,13 @@ public class ImageRequestModule {
     private static final String IMAGE_URL = "https://unsplash.it/400";
     private static RequestQueue requestQueue;
 
-    public static void getImage(Context context, String no, ImageCallbackListener imageCallbackListener) {
+    public static void getImage(Context context, String key, ImageCallbackListener imageCallbackListener) {
         requestQueue = getRequestQueue(context);
 
         StringBuilder url = new StringBuilder();
-        url.append(IMAGE_URL).append("?image=").append(no);
+        url.append(IMAGE_URL).append("?image=").append(key);
 
-        requestImage(no, url.toString(), imageCallbackListener);
+        requestImage(key, url.toString(), imageCallbackListener);
     }
 
     private static void requestImage(String no, String url, final ImageCallbackListener imageCallbackListener) {
@@ -37,7 +37,7 @@ public class ImageRequestModule {
                         imageCallbackListener.onSuccess(response);
                     }
                 },
-                500, 500, ImageView.ScaleType.FIT_CENTER, Bitmap.Config.ARGB_8888,
+                400, 400, ImageView.ScaleType.FIT_XY, Bitmap.Config.ARGB_8888,
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
@@ -57,13 +57,13 @@ public class ImageRequestModule {
         return requestQueue;
     }
 
-    public static void cancel(final String no) {
+    public static void cancel(final String key) {
         if (requestQueue != null) {
             requestQueue.cancelAll(new RequestQueue.RequestFilter() {
                 @Override
                 public boolean apply(Request<?> request) {
-                    if (request.getTag() == no) {
-                        Log.d("ImageRequestModule", no + " cancel");
+                    if (request.getTag() == key) {
+                        Log.d("ImageRequestModule", key + " cancel");
                         return true;
                     }
                     return false;

@@ -28,7 +28,7 @@ public class GalleryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     GalleryAdapter(Context context, List<String> imageKeys) {
         this.imageKeys = imageKeys;
-        imageCache = new ImageCache();
+        imageCache = new ImageCache(context);
     }
 
     @Override
@@ -56,8 +56,9 @@ public class GalleryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     }
 
     @Override
-    public void onViewDetachedFromWindow(RecyclerView.ViewHolder holder) {
-        Log.d("GalleryAdapter", "detached " + holder.getAdapterPosition());
+    public void onViewRecycled(RecyclerView.ViewHolder holder) {
+        super.onViewRecycled(holder);
+        // TODO: 2017. 4. 24. cancel
         imageCache.cancel(((ImageViewHolder) holder).imageView, String.valueOf(holder.getAdapterPosition()));
     }
 

@@ -26,32 +26,33 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.lang.ref.WeakReference;
+import java.util.stream.Stream;
 
 /**
  * Created by nhnent on 2017. 4. 19..
  */
 
 public class ImageCache {
-    private final int MEMORY_CACHE_SIZE = 1024 * 1024 * 5; // 5MB
+    private final int MEMORY_CACHE_SIZE = 1024 * 1024 * 10; // 5MB
 
     private final Object diskCacheLock = new Object();
-    private final int DISK_CACHE_SIZE = 1024 * 1024 * 20; // 10MB
+    private final int DISK_CACHE_SIZE = 1024 * 1024 * 100; // 20MB
     private final String DISK_CACHE_SUBDIR = "image_cache";
     private boolean diskCacheStarting;
 
     private LruCache<String, Bitmap> memoryCache;
     private DiskLruCache diskCache;
 
-    public ImageCache() {
+    public ImageCache(Context context) {
         memoryCache = new LruCache<String, Bitmap>(MEMORY_CACHE_SIZE) {
             @Override
             protected int sizeOf(String key, Bitmap value) {
-                return value.getByteCount() / 1024;
+                return value.getByteCount();
             }
         };
-
+        //todo context.getCacheDir()
         diskCacheStarting = true;
-        String diskCachePath = Environment.getExternalStorageDirectory().getAbsolutePath();
+        String diskCachePath = context.getCacheDir().getAbsolutePath();
         File cacheFile = new File(diskCachePath + File.separator + DISK_CACHE_SUBDIR);
         new InitDiskCacheTask().execute(cacheFile);
     }
@@ -63,10 +64,12 @@ public class ImageCache {
             Log.d("ImageCache", key + " - get from memory cache");
         }
         else {
-            BitmapWorkerTask bitmapWorkerTask = new BitmapWorkerTask(imageView);
-            AsyncDrawable asyncDrawable = new AsyncDrawable(imageView.getResources(), BitmapFactory.decodeResource(imageView.getResources(), R.drawable.empty_photo), bitmapWorkerTask);
+            Bitmap emptyBitmap = BitmapFactory.decodeResource(imageView.getResources(), R.drawable.empty_photo);
+            
+            BitmapWorkerTask bitmapWorkerTask = new BitmapWorkerTask(imageView); // TODO: 2017. 4. 24.  
+            AsyncDrawable asyncDrawable = new AsyncDrawable(imageView.getResources(), emptyBitmap, bitmapWorkerTask);
             imageView.setImageDrawable(asyncDrawable);
-            bitmapWorkerTask.execute(key);
+            bitmapWorkerTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, key);
         }
     }
 
@@ -76,12 +79,10 @@ public class ImageCache {
             if (drawable instanceof AsyncDrawable) {
                 AsyncDrawable asyncDrawable = (AsyncDrawable) imageView.getDrawable();
                 if (asyncDrawable.getBitmapWorkerTask() != null) {
-                    Log.d("ImageCache", "imageView task cancel set");
+                    Log.d("ImageCache", "imageView task cancel() " + key);
                     asyncDrawable.getBitmapWorkerTask().cancel(true);
                 }
-                else {
-                    asyncDrawable.getBitmap().recycle();
-                }
+                imageView.setImageBitmap(BitmapFactory.decodeResource(imageView.getResources(), R.drawable.empty_photo));
             }
             ImageRequestModule.cancel(key);
         }
@@ -96,10 +97,10 @@ public class ImageCache {
         }
     }
 
-    private class BitmapWorkerTask extends AsyncTask<String, Void, Bitmap> {
+    private class BitmapWorkerTask extends AsyncTask<String, Void, WeakReference<Bitmap>> {
         private WeakReference<ImageView> imageViewReference;
+        private WeakReference<Bitmap> bitmapReference; // TODO: 2017. 4. 24. <bitmap> 추가
         private Context context;
-        private Bitmap bitmap;
         private String key;
 
         BitmapWorkerTask(ImageView imageView) {
@@ -108,67 +109,66 @@ public class ImageCache {
         }
 
         @Override
-        protected Bitmap doInBackground(String... params) {
+        protected WeakReference<Bitmap> doInBackground(String... params) {
             key = params[0];
             // check disk cache
-            bitmap = getFromDiskCache(key);
+            bitmapReference = new WeakReference<>(getFromDiskCache(key));
 
-            if (bitmap == null) {
+//            if (bitmap == null) {
+              if (bitmapReference.get() == null) {
                 if (!isCancelled()) {
                     ImageRequestModule.getImage(context, key, new ImageCallbackListener() {
                         @Override
                         public void onSuccess(Bitmap bitmap) {
                             if (!isCancelled() && imageViewReference.get() != null) {
                                 imageViewReference.get().setImageBitmap(bitmap);
-
                                 addToMemoryCache(key, bitmap);
-
-//                                if (!isCancelled()) {
-                                    addToDiskCache(key, bitmap);
-//                                }
-                                Log.d("ImageCache", "success " + key);
+                                addToDiskCache(key, bitmap);
                             }
                         }
 
                         @Override
                         public void onFail(String data) {
                             imageViewReference.clear();
-                            Log.e("ImageCache", "error" + data);
+                            bitmapReference.clear();
+                            Log.e("ImageCache", "error " + key + " " + data);
                         }
                     });
                 }
             }
             else {
-                addToMemoryCache(key, bitmap);
-                return bitmap;
+                addToMemoryCache(key, bitmapReference.get());
+                return bitmapReference;
             }
             return null;
         }
 
         @Override
         protected void onCancelled() {
-            handleCancelled(bitmap);
+            handleCancelled(bitmapReference);
         }
 
         @Override
-        protected void onCancelled(Bitmap bitmap) {
-            handleCancelled(bitmap);
+        protected void onCancelled(WeakReference<Bitmap> bitmapWeakReference) {
+            handleCancelled(bitmapWeakReference);
         }
 
-        private void handleCancelled(Bitmap result) {
+        private void handleCancelled(WeakReference<Bitmap> bitmapReference) {
+            if (bitmapReference != null) {
+                bitmapReference.clear();
+            }
+            if (imageViewReference != null) {
+                imageViewReference.clear();
+            }
+
             ImageRequestModule.cancel(key);
-            Log.d("ImageCache", "AsyncTask cancelled " + result);
+            Log.d("ImageCache", "AsyncTask cancelled " + key);
         }
 
         @Override
-        protected void onPostExecute(Bitmap bitmap) {
-            if (!isCancelled() && imageViewReference.get() != null && bitmap != null) {
-                imageViewReference.get().setImageBitmap(bitmap);
-                ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-                Log.d("ImageCache", "view size : " + imageViewReference.get().getWidth() + " * " + imageViewReference.get().getHeight());
-                Log.d("ImageCache", "bitmap width : " + bitmap.getWidth()+"");
-                Log.d("ImageCache", "bitmap " + key + " size : " + stream.toByteArray().length);
+        protected void onPostExecute(WeakReference<Bitmap> bitmapReference) {
+            if (!isCancelled() && imageViewReference != null && bitmapReference != null) {
+                imageViewReference.get().setImageBitmap(bitmapReference.get());
             }
         }
     }
@@ -205,14 +205,14 @@ public class ImageCache {
         synchronized (diskCacheLock) {
             // Add to disk cache
             if (diskCache != null) {
-                OutputStream out = null;
+                OutputStream outputStream = null;
                 try {
                     DiskLruCache.Snapshot snapshot = diskCache.get(key);
-                    if (snapshot == null) {
+                    if (snapshot == null) { // TODO: 2017. 4. 24. block 깊은 건 - 분리
                         final DiskLruCache.Editor editor = diskCache.edit(key);
-                        if (editor != null) {
-                            out = editor.newOutputStream(0);
-                            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
+                        if (editor != null) { 
+                            outputStream = editor.newOutputStream(0);
+                            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
                             editor.commit();
                             diskCache.flush();
                             Log.d("ImageCache", key + " - add to disk cache");
@@ -223,13 +223,7 @@ public class ImageCache {
                 } catch (final IOException e) {
                     Log.e("Cache", "addBitmapToCache - " + e);
                 } finally {
-                    try {
-                        if (out != null) {
-                            out.close();
-                        }
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                    closeOutputStream(outputStream);
                 }
             }
         }
@@ -247,7 +241,7 @@ public class ImageCache {
                 InputStream inputStream = null;
                 try {
                     DiskLruCache.Snapshot snapshot = diskCache.get(key);
-                    if (snapshot != null) {
+                    if (snapshot != null) { // TODO: 2017. 4. 24. 분리 
                         inputStream = snapshot.getInputStream(0);
                         if (inputStream != null) {
                             FileDescriptor fileDescriptor = ((FileInputStream) inputStream).getFD();
@@ -259,17 +253,31 @@ public class ImageCache {
                 } catch (IOException e) {
                     e.printStackTrace();
                 } finally {
-                    try {
-                        if (inputStream != null) {
-                            inputStream.close();
-                        }
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                    closeInputStream(inputStream);
                 }
             }
         }
         return null;
+    }
+
+    private void closeInputStream(InputStream inputStream) {
+        try {
+            if (inputStream != null) {
+                inputStream.close();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void closeOutputStream(OutputStream outputStream) {
+        try {
+            if (outputStream != null) {
+                outputStream.close();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 
