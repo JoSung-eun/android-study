@@ -5,17 +5,18 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.sung_eunjo.smsreceiver.MainActivity">
-
-    <EditText
-        android:id="@+id/edit_content"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+    tools:context="com.example.nhnent.contentproviderstudy.MainActivity">
 
     <Button
-        android:id="@+id/button_send"
+        android:id="@+id/button_add"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="send broadcast"/>
+        android:text="insert"/>
 
+
+    <Button
+        android:id="@+id/button_select"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="select"/>
 </LinearLayout>

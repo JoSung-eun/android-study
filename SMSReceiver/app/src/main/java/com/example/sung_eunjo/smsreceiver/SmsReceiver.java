@@ -19,7 +19,7 @@ public class SmsReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         Log.d(TAG, "Call onReceive()");
 
-        Bundle bundle = intent.getExtras(); //인텐트 안에 들어있는 데이터
+        Bundle bundle = intent.getExtras();
         SmsMessage[] messages = parseSmsMessage(bundle);
 
         if (messages != null && messages.length > 0) {
@@ -44,7 +44,7 @@ public class SmsReceiver extends BroadcastReceiver {
         for (int i = 0; i < smsCount; i ++) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 String format = bundle.getString("format");
-                messages[i] = SmsMessage.createFromPdu((byte[]) objects[i], format);
+                messages[i] = SmsMessage.createFromPdu((byte[]) objects[i], format); //PDU: Protocol Data Unit, SMS 데이터 포맷 ?
             }
             else {
                 messages[i] = SmsMessage.createFromPdu((byte[]) objects[i]);
@@ -56,7 +56,7 @@ public class SmsReceiver extends BroadcastReceiver {
 
     private void sendToActivity(Context context, String sender, String contents, Date date) {
         Intent intent = new Intent(context, SmsActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_SINGLE_TOP|Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
         intent.putExtra("sender", sender);
         intent.putExtra("contents", contents);
@@ -64,4 +64,6 @@ public class SmsReceiver extends BroadcastReceiver {
 
         context.startActivity(intent);
     }
+
+
 }
