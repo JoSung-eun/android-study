@@ -9,7 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.RadioGroup;
 
-public class MainActivity extends FragmentActivity implements DialogWithRadio.RadioDialogListener2 {
+public class MainActivity extends FragmentActivity implements RadioDialogBuilder.RadioDialogListener {
 
     Button dialogBtn;
 
@@ -47,16 +47,16 @@ public class MainActivity extends FragmentActivity implements DialogWithRadio.Ra
                 LayoutInflater inflater = MainActivity.this.getLayoutInflater();
                 View view = inflater.inflate(R.layout.dialog_signin, null);
 
-                /*radioDialogBuilder.setView(view);
+                radioDialogBuilder.setView(view);
                 radioDialogBuilder.setRadioGroup((RadioGroup) view.findViewById(R.id.radio_group));
                 radioDialogBuilder.setPositiveButton((Button) view.findViewById(R.id.btn_ok), MainActivity.this);
-                radioDialogBuilder.create().show();*/
+                radioDialogBuilder.create().show();
 
-                DialogWithRadio dialogWithRadio = new DialogWithRadio();
-                new AlertDialog.Builder(MainActivity.this).setView(view);
-                dialogWithRadio.setRadioGroup((RadioGroup) view.findViewById(R.id.radio_group));
-                dialogWithRadio.setPositiveButton((Button) view.findViewById(R.id.btn_ok));
-                dialogWithRadio.show(getFragmentManager(), "radio");
+//                DialogWithRadio dialogWithRadio = new DialogWithRadio();
+//                new AlertDialog.Builder(MainActivity.this).setView(view);
+//                dialogWithRadio.setRadioGroup((RadioGroup) view.findViewById(R.id.radio_group));
+//                dialogWithRadio.setPositiveButton((Button) view.findViewById(R.id.btn_ok));
+//                dialogWithRadio.show(getFragmentManager(), "radio");
 
             }
         });

@@ -35,12 +35,12 @@ public class RadioDialogBuilder extends AlertDialog.Builder {
 
     public void setRadioGroup(RadioGroup radioGroup) {
         this.radioGroup = radioGroup;
-        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
-                checkedIndex = checkedId;
-            }
-        });
+//        this.radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
+//                checkedIndex = checkedId;
+//            }
+//        });
     }
 
     public void setPositiveButton(Button positiveButton, final RadioDialogListener listener) {
@@ -48,7 +48,7 @@ public class RadioDialogBuilder extends AlertDialog.Builder {
         this.positiveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listener.onPositiveClickListener(checkedIndex);
+                listener.onPositiveClickListener(radioGroup.getCheckedRadioButtonId());
             }
         });
     }
