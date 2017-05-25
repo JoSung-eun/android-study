@@ -24,6 +24,20 @@ public class MainActivity extends FragmentActivity implements BaseDialogFragment
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+       final DialogInterface.OnClickListener positiveListener = new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Log.d("main", "" + which);
+            }
+        };
+
+        final DialogInterface.OnClickListener negstiveListener = new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        };
+
         dialogBtn = (Button) findViewById(R.id.button_dialog);
         dialogBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -35,18 +49,17 @@ public class MainActivity extends FragmentActivity implements BaseDialogFragment
                 items.add("C");
 //                RadioDialogFragment radioDialog = dialogHelper.createRadioDialog(items);
 //                radioDialog.show(getFragmentManager(), "radio");
-                dialogHelper.createRadioDialog(items, MainActivity.this).show(getFragmentManager(), null);
+//                dialogHelper.createRadioDialog(items, MainActivity.this).show(getFragmentManager(), null);
 //                dialogHelper.createSimpleAlertDialog("simple alert").show(getFragmentManager(), "simple");
 //                dialogHelper.createCheckBoxDialog(items).show(getFragmentManager(), "checkbox");
+//                dialogHelper.createRadioDialog(items, positiveListener, negstiveListener);
+                dialogHelper.createRadioDialog(items, MainActivity.this).show(getFragmentManager(), null);
            }
         });
 
-        DialogInterface.OnClickListener positiveListener = new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
 
-            }
-        };
+
+
     }
 
 

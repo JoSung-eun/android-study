@@ -21,9 +21,9 @@ public class RadioDialogBuilder {
     private View radioView;
     private RadioGroup radioGroup;
     private Button positiveBtn;
+    private Button negativeBtn;
 
     private RadioDialogFragment radioDialogFragment;
-    private AlertDialog alertDialog;
 
     public RadioDialogBuilder(Context context, ArrayList<String> radioBtnLabels) {
         this.context = context;
@@ -42,17 +42,6 @@ public class RadioDialogBuilder {
         }
     }
 
-//    @Override
-//    public AlertDialog.Builder setView(View view) {
-//        RadioGroup radioGroup = (RadioGroup) view.findViewById(R.id.radio_group);
-//        for (String label : radioBtnLabels) {
-//            RadioButton radioButton = new RadioButton(getContext());
-//            radioButton.setText(label);
-//            radioGroup.addView(radioButton);
-//        }
-//        return super.setView(view);
-//    }
-
     public RadioDialogBuilder setPositiveButton(String label, final RadioDialogFragment.RadioDialogListener listener) {
         positiveBtn = (Button) radioView.findViewById(R.id.btn_positive);
         positiveBtn.setText(label);
@@ -67,8 +56,21 @@ public class RadioDialogBuilder {
         return this;
     }
 
-    public RadioDialogFragment create() {
+    public RadioDialogBuilder setNegativeButton(String label, final RadioDialogFragment.RadioDialogListener listener) {
+        negativeBtn = (Button) radioView.findViewById(R.id.btn_negative);
+        negativeBtn.setText(label);
+        negativeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.onNegativeButtonClick();
+            }
+        });
 
+        return this;
+    }
+
+    public RadioDialogFragment create() {
+        radioDialogFragment.setView(radioView);
         return radioDialogFragment;
     }
 

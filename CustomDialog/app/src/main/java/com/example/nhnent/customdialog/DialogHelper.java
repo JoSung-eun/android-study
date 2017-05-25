@@ -1,6 +1,7 @@
 package com.example.nhnent.customdialog;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.RadioButton;
@@ -36,13 +37,13 @@ public class DialogHelper {
         return radioDialogFragment;
     }
 
-    public RadioDialogFragment createRadioDialog(ArrayList<String> items, BaseDialogFragment.DialogListener listener) {
-        RadioDialogFragment radioDialogFragment = new RadioDialogFragment();
-        View radioView = LayoutInflater.from(context).inflate(R.layout.dialog_radio, null, false);
+    public RadioDialogFragment createRadioDialog(ArrayList<String> items, RadioDialogFragment.RadioDialogListener listener) {
         RadioDialogBuilder radioDialogBuilder = new RadioDialogBuilder(context, items);
-//        radioDialogBuilder.setView(radioView);
+        return radioDialogBuilder.setPositiveButton("ok", listener)
+                .setNegativeButton("nene", listener)
+                .create();
 
-        return RadioDialogFragment.getInstance(items);
+//        return RadioDialogFragment.getInstance(items);
     }
 
     public SimpleAlertDialog createSimpleAlertDialog(String text) {
