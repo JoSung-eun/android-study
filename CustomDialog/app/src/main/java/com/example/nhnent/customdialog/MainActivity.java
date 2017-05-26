@@ -1,8 +1,10 @@
 package com.example.nhnent.customdialog;
 
 import android.app.AlertDialog;
+import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.os.Parcel;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.View;
@@ -12,7 +14,7 @@ import android.widget.RadioGroup;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends FragmentActivity implements BaseDialogFragment.DialogListener, RadioDialogFragment.RadioDialogListener {
+public class MainActivity extends FragmentActivity {
 
     Button dialogBtn;
     AlertDialog dialog;
@@ -42,40 +44,58 @@ public class MainActivity extends FragmentActivity implements BaseDialogFragment
         dialogBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DialogHelper dialogHelper = new DialogHelper(MainActivity.this);
+//                DialogHelper dialogHelper = new DialogHelper(MainActivity.this);
                 ArrayList<String> items = new ArrayList<>();
                 items.add("A");
                 items.add("B");
                 items.add("C");
-//                RadioDialogFragment radioDialog = dialogHelper.createRadioDialog(items);
+//                RadioDialog radioDialog = dialogHelper.createRadioDialog(items);
 //                radioDialog.show(getFragmentManager(), "radio");
 //                dialogHelper.createRadioDialog(items, MainActivity.this).show(getFragmentManager(), null);
 //                dialogHelper.createSimpleAlertDialog("simple alert").show(getFragmentManager(), "simple");
 //                dialogHelper.createCheckBoxDialog(items).show(getFragmentManager(), "checkbox");
 //                dialogHelper.createRadioDialog(items, positiveListener, negstiveListener);
-                dialogHelper.createRadioDialog(items, MainActivity.this).show(getFragmentManager(), null);
-           }
+
+
+//                dialogHelper.createRadioDialog(items, MainActivity.this).show(getFragmentManager(), null);
+
+//                RadioDialogBuilder radioDialogBuilder = new RadioDialogBuilder(MainActivity.this, items);
+//                radioDialogBuilder.setPositiveButton("confirm", MainActivity.this)
+//                        .setNegativeButton("cancel", MainActivity.this)
+//                        .create().show(getFragmentManager(), null);
+
+                RadioDialog.Builder builder = new RadioDialog.Builder();
+                builder.setRadioItems(items)
+                        .setTitle("title")
+                        .setPositiveButton("ok", new BaseDialogFragment.OnClickListener() {
+                            @Override
+                            public void onClick(DialogFragment dialog, int which) {
+                                Log.d("main", "check : " + which);
+                                dialog.dismiss();
+                            }
+                        })
+                        .setNegativeButton("no", new BaseDialogFragment.OnClickListener() {
+                            @Override
+                            public void onClick(DialogFragment dialog, int which) {
+                                Log.d("main", "cancel");
+                                dialog.dismiss();
+                            }
+                        })
+                        .setNeutralButton("neutral", new BaseDialogFragment.OnClickListener() {
+                            @Override
+                            public void onClick(DialogFragment dialog, int which) {
+                                Log.d("main", "neutral");
+                                dialog.dismiss();
+                            }
+                        })
+                        .create().show(getFragmentManager(), null);
+
+//                dialogHelper.createSimpleAlertDialog("It is simple dialog...", MainActivity.this).show(getFragmentManager(), null);
+            }
         });
 
 
 
-
-    }
-
-
-    @Override
-    public void onPositiveButtonClick(int checkedId) {
-        Log.d("Main", "check : " + checkedId);
-    }
-
-    @Override
-    public void onPositiveButtonClick(List<Integer> checkedItems) {
-        Log.d("Main", "check : " + checkedItems.size());
-
-    }
-
-    @Override
-    public void onNegativeButtonClick() {
 
     }
 }

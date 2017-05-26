@@ -5,12 +5,17 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
+import android.widget.TextView;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,51 +23,67 @@ import java.util.List;
  */
 
 public abstract class BaseDialogFragment extends DialogFragment {
+    public static final int BUTTON_POSITIVE = -1;
+    public static final int BUTTON_NEGATIVE = -2;
+    public static final int BUTTON_NEUTRAL = -3;
+
     protected View view;
-    protected Button positiveBtn;
-    protected Button negativeBtn;
 
-    protected DialogListener listener;
-
-    @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-//        builder.setView(view);
-
-        bindContents();
-        bindPositiveButton();
-        bindNegativeButton();
-
-        return builder.create();
+    protected void setTitle(String text) {
+        TextView titleText = (TextView) view.findViewById(R.id.text_title);
+        titleText.setText(text);
     }
 
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        return view;
+    protected void setPositiveButton(String label, final OnClickListener listener) {
+        Button positiveBtn = (Button) view.findViewById(R.id.btn_positive);
+        positiveBtn.setText(label);
+        positiveBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.onClick(BaseDialogFragment.this, BUTTON_POSITIVE);
+            }
+        });
     }
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        try {
-            listener = (DialogListener) getActivity();
-        } catch (ClassCastException e) {
-            throw new ClassCastException(getActivity().toString() + " must implement NoticeDialogListener");
-        }
+    protected void setNegativeButton(String label, final OnClickListener listener) {
+        Button negativeBtn = (Button) view.findViewById(R.id.btn_negative);
+        negativeBtn.setText(label);
+        negativeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.onClick(BaseDialogFragment.this, BaseDialogFragment.BUTTON_NEGATIVE);
+            }
+        });
     }
 
-    public void setView(View view) {
-        this.view = view;
+    protected void setNeutralButton(String label, final OnClickListener listener) {
+        Button neutralBtn = (Button) view.findViewById(R.id.btn_neutral);
+        neutralBtn.setText(label);
+        neutralBtn.setVisibility(View.VISIBLE);
+        neutralBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.onClick(BaseDialogFragment.this, BaseDialogFragment.BUTTON_NEUTRAL);
+            }
+        });
     }
 
-    abstract void bindContents();
-    abstract void bindPositiveButton();
-    abstract void bindNegativeButton();
+    interface OnClickListener {
+        void onClick(DialogFragment dialog, int which);
+    }
 
-    interface DialogListener {
-        void onPositiveButtonClick(int checkedId);
-        void onPositiveButtonClick(List<Integer> checkedIds);
-        void onNegativeButtonClick();
+    public static class DialogParams implements Serializable {
+        public String title;
+        public String contentsText;
+
+        public String positiveBtnLabel;
+        public String negativeBtnLabel;
+        public String neutralBtnLabel;
+
+        public ArrayList<String> items;
+
+        public OnClickListener positiveBtnClickListener;
+        public OnClickListener negativeBtnClickListener;
+        public OnClickListener neutralBtnClickListener;
     }
 }
