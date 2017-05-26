@@ -53,7 +53,7 @@ public class RadioDialog extends BaseDialogFragment {
             final OnClickListener neutralBtnListener = params.neutralBtnClickListener;
 
             radioGroup = (RadioGroup) view.findViewById(R.id.radio_group);
-            if (items != null) {
+            if (items != null) { // TODO: 2017. 5. 26. setContents
                 for (String label : items) {
                     RadioButton radioButton = new RadioButton(getContext());
                     radioButton.setText(label);
