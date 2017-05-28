@@ -2,9 +2,9 @@ package com.example.nhnent.customdialog;
 
 import android.app.AlertDialog;
 import android.app.DialogFragment;
+import android.app.Fragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.os.Parcel;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.View;
@@ -12,7 +12,6 @@ import android.widget.Button;
 import android.widget.RadioGroup;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class MainActivity extends FragmentActivity {
 
@@ -66,36 +65,38 @@ public class MainActivity extends FragmentActivity {
 
                 RadioDialog.Builder builder = new RadioDialog.Builder();
                 builder.setRadioItems(items)
-                        .setTitle("title")
-                        .setPositiveButton("ok", new BaseDialogFragment.OnClickListener() {
+                        .setTitle("목록 보기 설정")
+                        .setPositiveButton("ok", new BaseDialog.OnClickListener() {
                             @Override
                             public void onClick(DialogFragment dialog, int which) {
                                 Log.d("main", "check : " + which);
                                 dialog.dismiss();
                             }
                         })
-                        .setNegativeButton("no", new BaseDialogFragment.OnClickListener() {
+                        .setNegativeButton("no", new BaseDialog.OnClickListener() {
                             @Override
                             public void onClick(DialogFragment dialog, int which) {
                                 Log.d("main", "cancel");
                                 dialog.dismiss();
                             }
                         })
-                        .setNeutralButton("neutral", new BaseDialogFragment.OnClickListener() {
-                            @Override
-                            public void onClick(DialogFragment dialog, int which) {
-                                Log.d("main", "neutral");
-                                dialog.dismiss();
-                            }
-                        })
-                        .create().show(getFragmentManager(), null);
+//                        .setNeutralButton("neutral", new BaseDialog.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogFragment dialog, int which) {
+//                                Log.d("main", "neutral");
+//                                dialog.dismiss();
+//                            }
+//                        })
+                        .create().show(getFragmentManager(), "dialog");
 
 //                dialogHelper.createSimpleAlertDialog("It is simple dialog...", MainActivity.this).show(getFragmentManager(), null);
             }
         });
 
+    }
 
-
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 }
