@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">FirebaseSamples</string>
 
+    <string-array name="score_symbol">
+        <item>X</item>
+        <item>/</item>
+    </string-array>
 </resources>

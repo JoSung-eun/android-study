@@ -2,11 +2,19 @@ package tada.study.firebasesamples;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -55,11 +63,39 @@ public class MainActivity extends AppCompatActivity {
 //        if (auth.getCurrentUser() != null) {
 //            //already sign in
 //        } else {
-//            init();
 //        }
+
+        init();
+
     }
 
     private void init() {
+        final AutoCompleteTextView textView = findViewById(R.id.regex_edittext);
+        String[] symbols = getResources().getStringArray(R.array.score_symbol);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, symbols);
+        textView.setAdapter(adapter);
+
+        textView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                if (view == null) return;
+                if (!b) {
+                    String text = textView.getText().toString();
+                    if (text.matches("[0-9]+|/|X")) {
+                        Toast.makeText(MainActivity.this, "complete", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(MainActivity.this, "fail", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+        });
+
+        textView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                textView.showDropDown();
+            }
+        });
     }
 
     private void signIn() {
