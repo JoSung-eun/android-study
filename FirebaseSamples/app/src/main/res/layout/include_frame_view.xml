@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="120dp">
+
+    <TextView
+        android:id="@+id/frame"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <EditText
+        android:id="@+id/score_1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        app:layout_constraintLeft_toLeftOf="@id/frame"
+        app:layout_constraintRight_toLeftOf="@+id/score_2"
+        app:layout_constraintTop_toBottomOf="@id/frame_1" />
+
+    <EditText
+        android:id="@+id/score_2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        app:layout_constraintLeft_toRightOf="@id/score_1"
+        app:layout_constraintRight_toLeftOf="@+id/score_bonus"
+        app:layout_constraintTop_toBottomOf="@id/frame" />
+
+    <EditText
+        android:id="@+id/score_bonus"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:visibility="gone"
+        app:layout_constraintLeft_toRightOf="@id/score_2"
+        app:layout_constraintRight_toRightOf="@id/frame_1"
+        app:layout_constraintTop_toBottomOf="@id/frame" />
+</android.support.constraint.ConstraintLayout>
