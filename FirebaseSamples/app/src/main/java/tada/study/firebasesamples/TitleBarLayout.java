@@ -46,4 +46,8 @@ public class TitleBarLayout extends ConstraintLayout {
     public void setMenuClickListener(OnClickListener menuClickListener) {
         menuIconImageView.setOnClickListener(menuClickListener);
     }
+
+    public void setMenuIconVisibility(boolean visible) {
+        menuIconImageView.setVisibility(visible ? VISIBLE : GONE);
+    }
 }
